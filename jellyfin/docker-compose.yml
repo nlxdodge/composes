@@ -19,6 +19,8 @@ services:
         source: /mnt/movies1/Series
         target: /media/series
     restart: unless-stopped
+    ports:
+      - 0.0.0.0:8096:8096
     extra_hosts:
       - host.docker.internal:host-gateway
 
