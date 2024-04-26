@@ -1,4 +1,4 @@
-version: 3.6
+version: '3.8'
 services:
   jellyfin:
     image: jellyfin/jellyfin
@@ -11,13 +11,13 @@ services:
       - /home/nlxdodge/configurations/jellyfin/cache:/cache
       - type: bind
         source: /mnt/movies1/Anime
-        target: /media
+        target: /media/anime
       - type: bind
         source: /mnt/movies1/Movies
-        target: /media
+        target: /media/movies
       - type: bind
         source: /mnt/movies1/Series
-        target: /media
+        target: /media/series
     restart: unless-stopped
     extra_hosts:
       - host.docker.internal:host-gateway
