@@ -1,0 +1,13 @@
+version: "3"
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    hostname: portainer
+    user: 1000:1000
+    restart: unless-stopped
+    ports:
+      - 9443:9443
+    volumes:
+      - /home/nlxdodge/configurations/portainer/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
