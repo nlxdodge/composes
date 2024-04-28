@@ -35,7 +35,7 @@ services:
       - /home/nlxdodge/configurations/flood:/config
       - /mnt/movies1:/data
     ports:
-      - 127.0.0.1:3000:3000
+      - 3000:3000
 
   rtorrent:
     image: jesec/rtorrent
@@ -50,4 +50,4 @@ services:
       - /home/nlxdodge/configurations/rtorrent:/config
       - /mnt/movies1:/data
     ports:
-      - 0.0.0.0:6881:6881
+      - 6881:6881
