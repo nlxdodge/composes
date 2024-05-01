@@ -52,7 +52,7 @@ services:
       HOME: /config
     volumes:
       - /home/nlxdodge/configurations/rtorrent:/config
-      - /home/nlxdodge/configurations/windscribe:/etc/openvpn/
+      - /home/nlxdodge/configurations/windscribe:/etc/openvpn
       - /mnt/movies1:/data
     ports:
       - 6881:6881
