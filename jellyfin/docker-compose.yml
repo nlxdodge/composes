@@ -4,7 +4,7 @@ services:
     image: jellyfin/jellyfin
     container_name: jellyfin
     hostname: jellyfin
-    user: 1000:1000
+    user: "1000:1000"
     restart: unless-stopped
     network_mode: 'host'
     volumes:
@@ -26,7 +26,7 @@ services:
     image: jesec/flood
     container_name: flood
     hostname: flood
-    user: 1000:1000
+    user: "1000:1000"
     restart: unless-stopped
     command: --port 3000 --allowedpath /data
     environment:
@@ -43,11 +43,11 @@ services:
       - NET_ADMIN
     container_name: rtorrent
     hostname: rtorrent
-    user: 1000:1000
+    user: "1000:1000"
     restart: unless-stopped
     devices:
       - /dev/net/tun:/dev/net/tun
-    command: -o network.port_range.set=6881-6881,system.daemon.set=true
+    command: ["-o", "network.port_range.set=6881-6881", "-o", "system.daemon.set=true"]
     environment:
       HOME: /config
     volumes:
