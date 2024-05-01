@@ -32,7 +32,7 @@ services:
     environment:
       HOME: /config
     volumes:
-      - /home/nlxdodge/configurations/flood:/config
+      - /home/nlxdodge/configurations/rtorrent:/config
       - /mnt/movies1:/data
     ports:
       - 3000:3000
