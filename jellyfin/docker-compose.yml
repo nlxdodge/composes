@@ -36,6 +36,21 @@ services:
     ports:
       - 3000:3000
 
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    hostname: gluetun
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=windscribe
+      - VPN_TYPE=openvpn
+      - OPENVPN_CONFIG=/vpn/config.ovpn
+      - OPENVPN_AUTH_USER_PASS=/vpn/creds.txt
+    volumes:
+      - ./config.ovpn:/vpn/config.ovpn
+      - ./creds.txt:/vpn/creds.txt
+
   rtorrent:
     image: jesec/flood
     network_mode: "service:gluetun"
@@ -51,16 +66,3 @@ services:
       - /mnt/movies1:/data
     ports:
       - 6881:6881
-
-  gluetun:
-    image: qmcgaw/gluetun
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - VPN_SERVICE_PROVIDER=windscribe
-      - VPN_TYPE=openvpn
-      - OPENVPN_CONFIG=/vpn/config.ovpn
-      - OPENVPN_AUTH_USER_PASS=/vpn/creds.txt
-    volumes:
-      - ./config.ovpn:/vpn/config.ovpn
-      - ./creds.txt:/vpn/creds.txt
