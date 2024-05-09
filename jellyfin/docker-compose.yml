@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   jellyfin:
     image: jellyfin/jellyfin
@@ -55,13 +54,16 @@ services:
 
   gluetun:
     image: qmcgaw/gluetun
+    container_name: gluetun
+    hostname: gluetun
+    restart: unless-stopped
     cap_add:
       - NET_ADMIN
     environment:
       - VPN_SERVICE_PROVIDER=windscribe
       - VPN_TYPE=openvpn
-      - OPENVPN_CONFIG=/config.ovpn
-      - OPENVPN_AUTH_USER_PASS=/creds.txt
+      - OPENVPN_CONFIG=/vpn/config.ovpn
+      - OPENVPN_AUTH_USER_PASS=/vpn/creds.txt
     volumes:
-      - /path/to/config.ovpn:/vpn/config.ovpn
-      - /path/to/credentials.txt:/vpn/credentials.txt
+      - /config.ovpn:/vpn/config.ovpn
+      - /creds.txt:/vpn/creds.txt
