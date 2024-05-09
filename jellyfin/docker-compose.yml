@@ -48,12 +48,14 @@ services:
     volumes:
       - ./config.ovpn:/vpn/config.ovpn
       - ./creds.txt:/vpn/creds.txt
+    ports:
+      - 6881:6881 # Needed for Rtorrent to connect
 
   rtorrent:
     image: jesec/flood
     depends_on: 
      - gluetun
-    network_mode: "service:gluetun"
+    network_mode: "service:gluetun" # Use gluetun vpn container
     container_name: rtorrent
     user: "1000:1000"
     restart: unless-stopped
@@ -63,5 +65,3 @@ services:
     volumes:
       - /home/nlxdodge/configurations/rtorrent:/config
       - /mnt/movies1:/data
-    ports:
-      - 6881:6881
