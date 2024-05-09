@@ -43,10 +43,9 @@ services:
     environment:
       - VPN_SERVICE_PROVIDER=windscribe
       - VPN_TYPE=openvpn
-      - OPENVPN_CUSTOM_CONFIG=/vpn/config.ovpn
-    volumes:
-      - ./config.ovpn:/vpn/config.ovpn
-      - ./creds.txt:/vpn/creds.txt
+      - OPENVPN_USER=${OPENVPN_USER}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - SERVER_REGIONS=Netherlands
     ports:
       - 6881:6881 # Needed for Rtorrent to connect
 
