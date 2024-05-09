@@ -62,5 +62,5 @@ services:
       - OPENVPN_CONFIG=/vpn/config.ovpn
       - OPENVPN_AUTH_USER_PASS=/vpn/creds.txt
     volumes:
-      - config.ovpn:/vpn/config.ovpn
-      - creds.txt:/vpn/creds.txt
+      - ./config.ovpn:/vpn/config.ovpn
+      - ./creds.txt:/vpn/creds.txt
