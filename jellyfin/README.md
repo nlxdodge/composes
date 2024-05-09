@@ -1,11 +1,28 @@
 # How to setup
 
-Download the Windscribe configuration and paste that on your server in the `home/user/congigurations/windscribe` folder.
-Also include the creds.txt with the first line for the username, second line for the password.
-And change line 8 in the configuration with `auth-user-pass /etc/openvpn/creds.txt`.
+For Windscribe go to <https://windscribe.com/getconfig/openvpn> and click on Get Credentials, we will only use the username and password from this page.
+Next, on your server clone this repo, and create a `.env` file with the following contents.
+Here replace the username and password with what you just have generated.
 
-## Building
-
-```Dockerfile
-podman build --cap-add=NET_ADMIN --device=/dev/net/tun:/dev/net/tun .
+```text
+OPENVPN_USER=
+OPENVPN_PASSWORD=
 ```
+
+Next either use Docker or Podman to create the stack.
+
+```bash
+docker-compose up -d
+```
+
+or
+
+```bash
+podman-compose up -d
+```
+
+Now you have:
+
+- Rtorrent running behind Windscribe
+- Flood for adding torrents
+- Jellyfin to display them
