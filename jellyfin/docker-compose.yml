@@ -50,7 +50,7 @@ services:
       - 6881:6881 # Needed for Rtorrent to connect
 
   rtorrent:
-    image: jesec/flood
+    image: jesec/rtorrent
     depends_on: 
      - gluetun
     network_mode: "service:gluetun" # Use gluetun vpn container
