@@ -43,8 +43,7 @@ services:
     environment:
       - VPN_SERVICE_PROVIDER=windscribe
       - VPN_TYPE=openvpn
-      - OPENVPN_CONFIG=/vpn/config.ovpn
-      - OPENVPN_AUTH_USER_PASS=/vpn/creds.txt
+      - OPENVPN_CUSTOM_CONFIG=/vpn/config.ovpn
     volumes:
       - ./config.ovpn:/vpn/config.ovpn
       - ./creds.txt:/vpn/creds.txt
