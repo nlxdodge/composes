@@ -38,21 +38,30 @@ services:
       - 3000:3000
 
   rtorrent:
-    image: .
-    cap_add:
-      - NET_ADMIN
+    image: jesec/flood
+    network_mode: "service:gluetun"
     container_name: rtorrent
     hostname: rtorrent
     user: "1000:1000"
     restart: unless-stopped
-    devices:
-      - /dev/net/tun:/dev/net/tun
     command: ["-o", "network.port_range.set=6881-6881", "-o", "system.daemon.set=true"]
     environment:
       HOME: /config
     volumes:
       - /home/nlxdodge/configurations/rtorrent:/config
-      - /home/nlxdodge/configurations/windscribe:/etc/openvpn
       - /mnt/movies1:/data
     ports:
       - 6881:6881
+
+  gluetun:
+    image: qmcgaw/gluetun
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=windscribe
+      - VPN_TYPE=openvpn
+      - OPENVPN_CONFIG=/config.ovpn
+      - OPENVPN_AUTH_USER_PASS=/creds.txt
+    volumes:
+      - /path/to/config.ovpn:/vpn/config.ovpn
+      - /path/to/credentials.txt:/vpn/credentials.txt
