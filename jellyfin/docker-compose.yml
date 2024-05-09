@@ -54,6 +54,8 @@ services:
 
   rtorrent:
     image: jesec/flood
+    depends_on: 
+     - gluetun
     network_mode: "service:gluetun"
     container_name: rtorrent
     hostname: rtorrent
