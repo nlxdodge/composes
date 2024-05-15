@@ -20,6 +20,12 @@ services:
         target: /media/series
     extra_hosts:
       - host.docker.internal:host-gateway
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.gerbenveenhof.nl`)"
+      - "traefik.http.routers.jellyfin.entrypoints=websecure"
+      - "traefik.http.routers.jellyfin.tls=true"
+      - "traefik.http.routers.jellyfin.tls.certresolver=myresolver"
 
   flood:
     image: jesec/flood
