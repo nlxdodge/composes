@@ -13,6 +13,7 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entryPoints.websecure.address=:443"
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.myresolver.acme.email=contact@gerbenveenhof.nl"
       - "--certificatesresolvers.myresolver.acme.storage=/acme.json"
     ports:
@@ -21,12 +22,6 @@ services:
     volumes:
       - /letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
-
-  whoami:
-    image: "traefik/whoami"
-    container_name: "simple-service"
-    depends_on:
-      - traefik
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`traefik.gerbenveenhof.nl`)"
