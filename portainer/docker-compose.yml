@@ -15,7 +15,7 @@ services:
       - "traefik.http.routers.portainer.rule=Host(`portainer.gerbenveenhof.nl`)"
       - "traefik.http.routers.portainer.tls=true"
       - "traefik.http.routers.portainer.tls.certresolver=letsencrypt"
-      - "traefik.http.services.traefik.loadbalancer.server.port=9000"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
       - "traefik.docker.network=global"
 
 volumes:
