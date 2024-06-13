@@ -24,8 +24,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.gerbenveenhof.nl`)"
       - "traefik.http.routers.jellyfin.tls=true"
-      - "traefik.http.services.dmc-jellyfin.loadbalancer.server.port=8096"
       - "traefik.http.routers.jellyfin.tls.certresolver=letsencrypt"
+      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
 
   flood:
     image: jesec/flood
@@ -45,6 +45,7 @@ services:
       - "traefik.http.routers.flood.rule=Host(`flood.gerbenveenhof.nl`)"
       - "traefik.http.routers.flood.tls=true"
       - "traefik.http.routers.flood.tls.certresolver=letsencrypt"
+      - "traefik.http.services.jellyfin.loadbalancer.server.port=3000"
 
   gluetun:
     image: qmcgaw/gluetun
