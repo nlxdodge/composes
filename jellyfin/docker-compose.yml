@@ -26,7 +26,6 @@ services:
       - "traefik.http.routers.jellyfin.tls=true"
       - "traefik.http.services.dmc-jellyfin.loadbalancer.server.port=8096"
       - "traefik.http.routers.jellyfin.tls.certresolver=letsencrypt"
-      - "traefik.docker.network=global"
 
   flood:
     image: jesec/flood
@@ -46,7 +45,6 @@ services:
       - "traefik.http.routers.flood.rule=Host(`flood.gerbenveenhof.nl`)"
       - "traefik.http.routers.flood.tls=true"
       - "traefik.http.routers.flood.tls.certresolver=letsencrypt"
-      - "traefik.docker.network=global"
 
   gluetun:
     image: qmcgaw/gluetun
