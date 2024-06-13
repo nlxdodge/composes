@@ -45,7 +45,7 @@ services:
       - "traefik.http.routers.flood.rule=Host(`flood.gerbenveenhof.nl`)"
       - "traefik.http.routers.flood.tls=true"
       - "traefik.http.routers.flood.tls.certresolver=letsencrypt"
-      - "traefik.http.services.jellyfin.loadbalancer.server.port=3000"
+      - "traefik.http.services.flood.loadbalancer.server.port=3000"
 
   gluetun:
     image: qmcgaw/gluetun
