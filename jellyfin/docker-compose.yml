@@ -42,7 +42,6 @@ services:
     ports:
       - 3000:3000
     labels:
-      - "traefik.enable=true"
       - "traefik.http.routers.flood.rule=Host(`flood.gerbenveenhof.nl`)"
       - "traefik.http.services.flood.loadbalancer.server.port=3000"
       - "traefik.http.routers.flood.tls.certresolver=letsencrypt"
