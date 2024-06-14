@@ -15,12 +15,12 @@ services:
       - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
       - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.letsencrypt.acme.email=contact@gerbenveenhof.nl"
-      - "--certificatesresolvers.letsencrypt.acme.storage=/acme.json"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
     ports:
       - "443:443"
       - "8080:8080"
     volumes:
-      - /letsencrypt:/letsencrypt
+      - acme-data:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       - "traefik.http.routers.traefik.rule=Host(`traefik.gerbenveenhof.nl`)"
@@ -29,3 +29,6 @@ services:
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.docker.network=global"
       - "traefik.enable=true"
+
+volumes:
+  acme-data:
