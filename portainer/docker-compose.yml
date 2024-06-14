@@ -11,12 +11,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
     labels:
-      - "traefik.enable=true"
       - "traefik.http.routers.portainer.rule=Host(`portainer.gerbenveenhof.nl`)"
-      - "traefik.http.routers.portainer.tls=true"
-      - "traefik.http.routers.portainer.tls.certresolver=letsencrypt"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+      - "traefik.http.routers.portainer.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.portainer.entrypoints=websecure"
       - "traefik.docker.network=global"
+      - "traefik.enable=true"
 
 volumes:
   portainer_data:
