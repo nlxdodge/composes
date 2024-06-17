@@ -79,3 +79,8 @@ services:
     volumes:
       - /home/nlxdodge/configurations/rtorrent:/config
       - /mnt/movies1:/data
+
+networks:
+  default:
+    external:
+      name: global

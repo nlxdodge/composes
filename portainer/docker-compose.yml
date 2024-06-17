@@ -20,3 +20,8 @@ services:
 
 volumes:
   portainer_data:
+
+networks:
+  default:
+    external:
+      name: global

@@ -32,3 +32,8 @@ services:
 
 volumes:
   acme-data:
+
+networks:
+  default:
+    external:
+      name: global  
