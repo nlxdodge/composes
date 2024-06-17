@@ -5,7 +5,6 @@ services:
     container_name: jellyfin
     user: "1000:1000"
     restart: unless-stopped
-    network_mode: "host"
     volumes:
       - /home/nlxdodge/configurations/jellyfin/config:/config
       - /home/nlxdodge/configurations/jellyfin/cache:/cache
