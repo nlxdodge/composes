@@ -4,7 +4,9 @@ For Windscribe go to <https://windscribe.com/getconfig/openvpn> and click on Get
 Next, on your server clone this repo, and create a `.env` file with the following contents.
 Here replace the username and password with what you just have generated.
 
-```text
+#### .env
+
+```txt
 OPENVPN_USER=
 OPENVPN_PASSWORD=
 ```
@@ -13,16 +15,13 @@ Next either use Docker or Podman to create the stack.
 
 ```bash
 docker-compose up -d
-```
-
-or
-
-```bash
+# or
 podman-compose up -d
 ```
 
 Now you have:
 
-- Rtorrent running behind Windscribe
-- Flood for adding torrents
-- Jellyfin to display them
+- Rtorrent for downloading torrents
+- Gluetun for routing the torrent traffic over a VPN (Windscribe in this case)
+- Flood for adding torrents in a nice Web UI
+- Jellyfin to display the contents 🏴‍☠️🦜
