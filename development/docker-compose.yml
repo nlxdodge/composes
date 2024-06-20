@@ -7,7 +7,7 @@ services:
     depends_on:
       - postgres
     environment:
-      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONAR_JDBC_URL: jdbc:postgresql://postgres:5432/development
       SONAR_JDBC_USERNAME: ${POSTGRES_USER}
       SONAR_JDBC_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
@@ -17,7 +17,7 @@ services:
       - sonarqube_logs:/opt/sonarqube/logs
       - sonarqube_temp:/opt/sonarqube/temp
     ports:
-      - 6000:9000 # 9000 is already for portainer
+      - 7000:9000
     labels:
       - "traefik.http.routers.sonarqube.rule=Host(`sonarqube.gerbenveenhof.nl`)"
       - "traefik.http.services.sonarqube.loadbalancer.server.port=6000"

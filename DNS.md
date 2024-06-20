@@ -11,3 +11,5 @@ Copy and paste them over but supplying the IP_ADDRESS of your server's outbound 
 | jellyfin               | A    | <IP_ADDRESS>                             |
 | portainer              | A    | <IP_ADDRESS>                             |
 | traefik                | A    | <IP_ADDRESS>                             |
+| sonarqube              | A    | <IP_ADDRESS>                             |
+| postgres               | A    | <IP_ADDRESS>                             |

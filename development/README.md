@@ -21,4 +21,4 @@ Now you have:
 
 - A Postgres database running also for development 
 - SonarQube to check your code quality and code itself
-- 
+- GIT TODO?
