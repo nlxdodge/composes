@@ -1,0 +1,51 @@
+version: "3.9"
+services:
+  sonarqube:
+    image: sonarqube:lts
+    container_name: sonarqube
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonar
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    ports:
+      - 6000:9000 # 9000 is already for portainer
+    labels:
+      - "traefik.http.routers.sonarqube.rule=Host(`sonarqube.gerbenveenhof.nl`)"
+      - "traefik.http.services.sonarqube.loadbalancer.server.port=6000"
+      - "traefik.http.routers.sonarqube.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.sonarqube.entrypoints=websecure"
+      - "traefik.docker.network=global"
+      - "traefik.enable=true"
+
+  postgres:
+    image: postgres:12
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgresql_data:/var/lib/postgresql/
+    ports:
+      - 5432:5432
+    labels:
+      - "traefik.http.routers.postgres.rule=Host(`postgres.gerbenveenhof.nl`)"
+      - "traefik.http.services.postgres.loadbalancer.server.port=5432"
+      - "traefik.http.routers.postgres.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.postgres.entrypoints=websecure"
+      - "traefik.docker.network=global"
+      - "traefik.enable=true"
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  postgresql_data:
+
+networks:
+  default:
+    external:
+      name: global
