@@ -5,6 +5,7 @@ Copy and paste them over but supplying the IP_ADDRESS of your server's outbound 
 
 | Name                   | Type | IP Address                               |
 | ---------------------- | ---- | ---------------------------------------- |
+| map                    | A    | <IP_ADDRESS>                             |
 | craft                  | A    | <IP_ADDRESS>                             |
 | _minecraft._tcp.craft. | SRV  | 5 0 25565 <IP_ADDRESS>.gerbenveenhof.nl. |
 | flood                  | A    | <IP_ADDRESS>                             |

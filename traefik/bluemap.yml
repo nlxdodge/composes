@@ -1,0 +1,14 @@
+http:
+  routers:
+    bluemap:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`map.gerbenveenhof.nl`)"
+      service: "bluemap"
+      tls:
+        certResolver: letsencrypt
+  services:
+    bluemap:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:8100"
