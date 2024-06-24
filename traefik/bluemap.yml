@@ -11,4 +11,4 @@ http:
     bluemap:
       loadBalancer:
         servers:
-          - url: "http://127.0.0.1:8100"
+          - url: "http://172.17.0.1:8100"
