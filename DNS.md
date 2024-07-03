@@ -14,3 +14,4 @@ Copy and paste them over but supplying the IP_ADDRESS of your server's outbound 
 | traefik                | A    | <IP_ADDRESS>                             |
 | sonarqube              | A    | <IP_ADDRESS>                             |
 | postgres               | A    | <IP_ADDRESS>                             |
+| obsidian               | A    | <IP_ADDRESS>                             |

@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  obsidian:
+    image: lscr.io/linuxserver/obsidian:latest
+    container_name: obsidian
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - /path/to/config:/config
+    ports:
+      - 9001:3001
+    shm_size: "1gb"
+    labels:
+      - "traefik.http.routers.obsidian.rule=Host(`obsidian.gerbenveenhof.nl`)"
+      - "traefik.http.services.obsidian.loadbalancer.server.port=9001"
+      - "traefik.http.routers.obsidian.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.obsidian.entrypoints=websecure"
+      - "traefik.docker.network=global"
+      - "traefik.enable=true"
+
+networks:
+  default:
+    external:
+      name: global
