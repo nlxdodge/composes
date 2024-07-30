@@ -16,6 +16,6 @@ This will (remove if still there) and setup all the containers used in this repo
 | Traefik   | 8080        | gateway (Proxy and SSL as well)   |
 | Jellyfin  | 8096        | Mediaviewer (Plex alterative)     |
 | Portainer | 9000        | Container Web-UI                  |
-| Obsidian  | 9001        | Obsidian Note taking Web-UI       |
+| LogSeq    | 9001        | LogSeq Note taking Web-UI         |
 | Gluetun   | Not exposed | VPN Container                     |
 | RTorrent  | Not exposed | Torrent Container                 |

@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  logseq:
+    image: ghcr.io/logseq/logseq-webapp:latest
+    restart: unless-stopped
+    ports:
+      - 9001:80
+    volumes:
+      - /home/nlxdodge/configurations/logseq:/home/logseq/logseq
+    labels:
+      - "traefik.http.routers.logseq.rule=Host(`logseq.gerbenveenhof.nl`)"
+      - "traefik.http.services.logseq.loadbalancer.server.port=9001"
+      - "traefik.http.routers.logseq.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.logseq.entrypoints=websecure"
+      - "traefik.docker.network=global"
+      - "traefik.enable=true"
+
+networks:
+  default:
+    external:
+      name: global
