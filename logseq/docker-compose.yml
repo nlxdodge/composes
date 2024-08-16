@@ -2,6 +2,7 @@ version: "3.9"
 services:
   logseq:
     image: ghcr.io/logseq/logseq-webapp:latest
+    container_name: logseq
     restart: unless-stopped
     ports:
       - 9001:80
