@@ -10,7 +10,7 @@ services:
       - /home/nlxdodge/configurations/logseq:/home/logseq/logseq
     labels:
       - "traefik.http.routers.logseq.rule=Host(`logseq.gerbenveenhof.nl`)"
-      - "traefik.http.services.logseq.loadbalancer.server.port=9001"
+      - "traefik.http.services.logseq.loadbalancer.server.port=80"
       - "traefik.http.routers.logseq.tls.certresolver=letsencrypt"
       - "traefik.http.routers.logseq.entrypoints=websecure"
       - "traefik.docker.network=global"
