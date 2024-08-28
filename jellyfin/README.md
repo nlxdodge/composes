@@ -4,7 +4,7 @@ For Windscribe go to <https://windscribe.com/getconfig/openvpn> and click on Get
 Next, on your server clone this repo, and create a `.env` file with the following contents.
 Here replace the username and password with what you just have generated.
 
-#### .env
+## .env
 
 ```txt
 OPENVPN_USER=
