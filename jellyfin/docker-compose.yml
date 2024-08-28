@@ -59,7 +59,7 @@ services:
       - VPN_TYPE=openvpn
       - OPENVPN_USER=${OPENVPN_USER}
       - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
-      - SERVER_REGIONS=Netherlands
+      - SERVER_REGIONS=US West
     ports:
       - 6881:6881 # Needed for Rtorrent to connect
 
