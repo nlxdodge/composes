@@ -27,6 +27,25 @@ services:
       - "traefik.docker.network=global"
       - "traefik.enable=true"
 
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Asia/Tashkent
+    ports:
+      - 5055:5055
+    volumes:
+      - /home/nlxdodge/configurations/jellyseer:/app/config
+    restart: unless-stopped
+    labels:
+      - "traefik.http.routers.jellyseer.rule=Host(`jellyseer.gerbenveenhof.nl`)"
+      - "traefik.http.services.jellyseer.loadbalancer.server.port=5055"
+      - "traefik.http.routers.jellyseer.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.jellyseer.entrypoints=websecure"
+      - "traefik.docker.network=global"
+      - "traefik.enable=true"
+
   flood:
     image: jesec/flood
     container_name: flood

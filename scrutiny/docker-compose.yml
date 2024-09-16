@@ -1,0 +1,26 @@
+
+version: "3.9"
+services:
+  scrutiny:
+    container_name: scrutiny
+    image: ghcr.io/analogj/scrutiny:master-omnibus
+    cap_add:
+      - SYS_RAWIO
+    ports:
+      - "9001:8080"
+    volumes:
+      - /run/udev:/run/udev:ro
+      - /home/nlxdodge/configurations/scrutiny/config:/opt/scrutiny/config
+      - /home/nlxdodge/configurations/scrutiny/influxdb:/opt/scrutiny/influxdb
+    devices:
+      - "/dev/sda"
+      - "/dev/sdb"
+      - "/dev/sdc"
+    restart: unless-stopped
+    labels:
+      - "traefik.http.routers.scrutiny.rule=Host(`scrutiny.gerbenveenhof.nl`)"
+      - "traefik.http.services.scrutiny.loadbalancer.server.port=5055"
+      - "traefik.http.routers.scrutiny.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.scrutiny.entrypoints=websecure"
+      - "traefik.docker.network=global"
+      - "traefik.enable=true"
