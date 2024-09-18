@@ -23,3 +23,13 @@ This will (remove if still there) and setup all the containers used in this repo
 | Prowlarr  | 9696 | Prowlarr Web-UI                      |
 | Gluetun   | 6881 | VPN Container                        |
 | RTorrent  | 6881 | Torrent Container                    |
+
+## Usage
+
+Setup the network and pull the latest version by running 
+
+```
+(sudo) ./scripts/setup.sh
+```
+
+Then using setup or start and stop to create the containers themself.
