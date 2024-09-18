@@ -9,14 +9,8 @@ services:
       - /home/nlxdodge/configurations/jellyfin/config:/config
       - /home/nlxdodge/configurations/jellyfin/cache:/cache
       - type: bind
-        source: /mnt/movies1/Anime
-        target: /media/anime
-      - type: bind
-        source: /mnt/movies1/Movies
-        target: /media/movies
-      - type: bind
-        source: /mnt/movies1/Series
-        target: /media/series
+        source: /mnt/movies1
+        target: /media
     extra_hosts:
       - host.docker.internal:host-gateway
     labels:
@@ -30,14 +24,14 @@ services:
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
     container_name: jellyseerr
+    user: "1000:1000"
+    restart: unless-stopped
     environment:
       - LOG_LEVEL=debug
-      - TZ=Asia/Tashkent
     ports:
       - 5055:5055
     volumes:
       - /home/nlxdodge/configurations/jellyseer:/app/config
-    restart: unless-stopped
     labels:
       - "traefik.http.routers.jellyseer.rule=Host(`jellyseer.gerbenveenhof.nl`)"
       - "traefik.http.services.jellyseer.loadbalancer.server.port=5055"
@@ -80,13 +74,13 @@ services:
       - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
       - SERVER_REGIONS=US West
     ports:
-      - 6881:6881 # Needed for Rtorrent to connect
+      - 6881:6881 # needed for Rtorrent to connect
 
   rtorrent:
     image: jesec/rtorrent
     depends_on:
       - gluetun
-    network_mode: "service:gluetun" # Use gluetun vpn container
+    network_mode: "service:gluetun" # use gluetun vpn container
     container_name: rtorrent
     user: "1000:1000"
     restart: unless-stopped
@@ -97,6 +91,41 @@ services:
     volumes:
       - /home/nlxdodge/configurations/rtorrent:/config
       - /mnt/movies1:/data
+
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    user: "1000:1000"
+    restart: unless-stopped
+    volumes:
+      - /home/nlxdodge/configurations/radarr:/config
+      - /mnt/movies1/Movies:/movies
+    ports:
+      - 7878:7878
+    labels:
+      - "traefik.http.routers.radarr.rule=Host(`radarr.gerbenveenhof.nl`)"
+      - "traefik.http.services.radarr.loadbalancer.server.port=7878"
+      - "traefik.http.routers.radarr.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.radarr.entrypoints=websecure"
+      - "traefik.docker.network=global"
+      - "traefik.enable=true"
+
+  prowlarr:
+    image: linuxserver/prowlarr
+    container_name: prowlarr
+    user: "1000:1000"
+    restart: unless-stopped
+    volumes:
+      - /home/nlxdodge/configurations/prowlarr:/config
+    ports:
+      - 9696:9696
+    labels:
+      - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.gerbenveenhof.nl`)"
+      - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
+      - "traefik.http.routers.prowlarr.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.prowlarr.entrypoints=websecure"
+      - "traefik.docker.network=global"
+      - "traefik.enable=true"
 
 networks:
   default:
