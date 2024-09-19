@@ -1,4 +1,11 @@
-docker-compose -f "../traefik/docker-compose.yml" down
-docker-compose -f "../portainer/docker-compose.yml" down
-docker-compose -f "../jellyfin/docker-compose.yml" down
-docker-compose -f "../scrutiny/docker-compose.yml" down
+#!/bin/bash
+git pull
+
+services=("traefik" "portainer" "scrutiny" "jellyfin")
+
+for service in "${services[@]}"; do
+  cd "../$service/"
+  pushd .
+  docker-compose down
+  popd
+done
