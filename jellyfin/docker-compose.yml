@@ -126,6 +126,7 @@ services:
     volumes:
       - /home/nlxdodge/configurations/radarr:/config
       - /mnt/movies1/Movies:/movies
+      - /mnt/movies1/Downloads:/downloads
     labels:
       - "traefik.http.routers.radarr.rule=Host(`radarr.gerbenveenhof.nl`)"
       - "traefik.http.services.radarr.loadbalancer.server.port=7878"

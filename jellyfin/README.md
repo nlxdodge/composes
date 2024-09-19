@@ -39,7 +39,4 @@ network.port_range.set=6881-6881
 
 ## Fix for socket locking
 session.use_lock.set = no
-
-## enable RPC2
-scgi_port = localhost:5000
 ```
