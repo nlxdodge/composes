@@ -95,7 +95,6 @@ services:
   sonarr:
     image: linuxserver/sonarr
     container_name: sonarr
-    user: "1000:1000"
     restart: unless-stopped
     volumes:
       - /home/nlxdodge/configurations/sonarr/config:/config
@@ -115,7 +114,6 @@ services:
   radarr:
     image: linuxserver/radarr
     container_name: radarr
-    user: "1000:1000"
     restart: unless-stopped
     volumes:
       - /home/nlxdodge/configurations/radarr:/config
@@ -133,7 +131,6 @@ services:
   prowlarr:
     image: linuxserver/prowlarr
     container_name: prowlarr
-    user: "1000:1000"
     restart: unless-stopped
     volumes:
       - /home/nlxdodge/configurations/prowlarr:/config
