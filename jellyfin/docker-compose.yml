@@ -22,7 +22,7 @@ services:
       - "traefik.enable=true"
 
   jellyseerr:
-    image: fallenbagel/jellyseerr:latest
+    image: fallenbagel/jellyseerr
     container_name: jellyseerr
     user: "1000:1000"
     restart: unless-stopped
