@@ -7,7 +7,7 @@ services:
     cap_add:
       - SYS_RAWIO
     ports:
-      - "9001:8080"
+      - "9500:8080"
     volumes:
       - /run/udev:/run/udev:ro
       - /home/nlxdodge/configurations/scrutiny/config:/opt/scrutiny/config
