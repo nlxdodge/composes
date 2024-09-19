@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.http.routers.scrutiny.rule=Host(`scrutiny.gerbenveenhof.nl`)"
-      - "traefik.http.services.scrutiny.loadbalancer.server.port=5055"
+      - "traefik.http.services.scrutiny.loadbalancer.server.port=9500"
       - "traefik.http.routers.scrutiny.tls.certresolver=letsencrypt"
       - "traefik.http.routers.scrutiny.entrypoints=websecure"
       - "traefik.docker.network=global"
