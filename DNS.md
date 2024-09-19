@@ -18,3 +18,6 @@ Copy and paste them over but supplying the IP_ADDRESS of your server's outbound 
 | postgres                   | A    | <IP_ADDRESS>                             |
 | jellyseer                  | A    | <IP_ADDRESS>                             |
 | scrutiny                   | A    | <IP_ADDRESS>                             |
+| radarr                     | A    | <IP_ADDRESS>                             |
+| sonarr                     | A    | <IP_ADDRESS>                             |
+| prowlarr                   | A    | <IP_ADDRESS>                             |

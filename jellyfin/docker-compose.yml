@@ -92,6 +92,26 @@ services:
       - /home/nlxdodge/configurations/rtorrent:/config
       - /mnt/movies1:/data
 
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    user: "1000:1000"
+    restart: unless-stopped
+    volumes:
+      - /home/nlxdodge/configurations/sonarr/config:/config
+      - /mnt/movies1/Series:/tv
+      - /mnt/movies1/Anime:/anime
+      - /mnt/movies1/Downloads:/downloads
+    ports:
+      - 8989:8989
+    labels:
+      - "traefik.http.routers.sonarr.rule=Host(`sonarr.gerbenveenhof.nl`)"
+      - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
+      - "traefik.http.routers.sonarr.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.sonarr.entrypoints=websecure"
+      - "traefik.docker.network=global"
+      - "traefik.enable=true"
+
   radarr:
     image: linuxserver/radarr
     container_name: radarr
