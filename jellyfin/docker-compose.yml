@@ -94,6 +94,9 @@ services:
 
   sonarr:
     image: linuxserver/sonarr
+    depends_on:
+      - gluetun
+    network_mode: "service:gluetun" # use gluetun vpn container
     container_name: sonarr
     restart: unless-stopped
     volumes:
@@ -113,6 +116,9 @@ services:
 
   radarr:
     image: linuxserver/radarr
+    depends_on:
+      - gluetun
+    network_mode: "service:gluetun" # use gluetun vpn container
     container_name: radarr
     restart: unless-stopped
     volumes:
@@ -130,6 +136,9 @@ services:
 
   prowlarr:
     image: linuxserver/prowlarr
+    depends_on:
+      - gluetun
+    network_mode: "service:gluetun" # use gluetun vpn container
     container_name: prowlarr
     restart: unless-stopped
     volumes:
