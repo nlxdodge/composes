@@ -25,3 +25,21 @@ Now you have:
 - Gluetun for routing the torrent traffic over a VPN (Windscribe in this case)
 - Flood for adding torrents in a nice Web UI
 - Jellyfin to display the contents 🏴‍☠️🦜
+
+## extra needed configuration
+
+### rtorrent
+
+```
+## Import default configurations
+import = /etc/rtorrent/rtorrent.rc
+
+## Listening port
+network.port_range.set=6881-6881
+
+## Fix for socket locking
+session.use_lock.set = no
+
+## enable RPC2
+scgi_port = localhost:5000
+```
