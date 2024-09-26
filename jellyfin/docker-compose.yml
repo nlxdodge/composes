@@ -90,7 +90,7 @@ services:
     restart: unless-stopped
     command:
       [
-        "-n", "-o import=/config/rtorrent.rc",
+        "-n", "-o", "import=/config/rtorrent.rc"
       ]
     environment:
       HOME: /config
