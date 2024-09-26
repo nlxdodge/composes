@@ -74,7 +74,7 @@ trackers.numwant.set = 80
 # Limits for file handle resources, this is optimized for
 # an `ulimit` of 1024 (a common default). You MUST leave
 # a ceiling of handles reserved for rTorrent's internal needs!
-network.max_open_files.set = 600
+network.max_open_files.set = 999
 network.max_open_sockets.set = 300
 
 # Preallocate disk space for contents of a torrent
@@ -110,11 +110,8 @@ system.umask.set = 0027
 system.cwd.set = (directory.default)
 
 # HTTP and SSL
-network.http.max_open.set = 50
+network.http.max_open.set = 99
 network.http.dns_cache_timeout.set = 25
-
-# Run the rTorrent process as a daemon in the background
-system.daemon.set = true
 
 # TCP interface
 network.scgi.open_port=0.0.0.0:5000
