@@ -104,6 +104,7 @@ services:
     container_name: sonarr
     restart: unless-stopped
     volumes:
+      - /home/nlxdodge/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
       - /home/nlxdodge/configurations/sonarr/config:/config
       - /mnt/movies1/Series:/tv
       - /mnt/movies1/Anime:/anime
@@ -124,6 +125,7 @@ services:
     container_name: radarr
     restart: unless-stopped
     volumes:
+      - /home/nlxdodge/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
       - /home/nlxdodge/configurations/radarr:/config
       - /mnt/movies1/Movies:/movies
       - /mnt/movies1/Downloads:/downloads
