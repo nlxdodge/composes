@@ -121,4 +121,7 @@ print = (cat, "Logging to ", (cfg.logfile))
 log.open_file = "log", (cfg.logfile)
 log.add_output = "info", "log"
 
+# Enable Daemon mode
+system.daemon.set = true
+
 ### END of rtorrent.rc ###
