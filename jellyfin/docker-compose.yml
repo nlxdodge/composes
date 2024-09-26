@@ -72,7 +72,7 @@ services:
       - VPN_TYPE=openvpn
       - OPENVPN_USER=${OPENVPN_USER}
       - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
-      - SERVER_REGIONS=Amsterdam Bicycle
+      - SERVER_REGIONS=Netherlands
     ports:
       - 9696:9696 # prowlarr
       - 6881:6881 # rtorrent download
