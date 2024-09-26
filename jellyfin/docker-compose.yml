@@ -33,10 +33,10 @@ services:
     volumes:
       - /home/nlxdodge/configurations/jellyseer:/app/config
     labels:
-      - "traefik.http.routers.jellyseer.rule=Host(`jellyseer.gerbenveenhof.nl`)"
-      - "traefik.http.services.jellyseer.loadbalancer.server.port=5055"
-      - "traefik.http.routers.jellyseer.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.jellyseer.entrypoints=websecure"
+      - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.gerbenveenhof.nl`)"
+      - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
+      - "traefik.http.routers.jellyseerr.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.jellyseerr.entrypoints=websecure"
       - "traefik.docker.network=global"
       - "traefik.enable=true"
 
