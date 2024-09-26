@@ -113,8 +113,8 @@ system.cwd.set = (directory.default)
 network.http.max_open.set = 99
 network.http.dns_cache_timeout.set = 25
 
-# TCP interface
-network.scgi.open_port=0.0.0.0:5000
+# XML-RPC interface
+network.scgi.open_local = (cat,(cfg.basedir),rtorrent.sock)
 
 # Logging:
 print = (cat, "Logging to ", (cfg.logfile))
