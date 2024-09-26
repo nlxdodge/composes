@@ -89,7 +89,12 @@ services:
     user: "1000:1000"
     restart: unless-stopped
     command:
-      ["-o", "network.port_range.set=6881-6881", "-o", "system.daemon.set=true"]
+      [
+        "-o", "network.port_range.set=6881-6881", 
+        "-o", "system.daemon.set = true",
+        "-o", "session.use_lock.set = no",
+        "-o", "network.scgi.open_port = 0.0.0.0:5000"
+      ]
     environment:
       HOME: /config
     volumes:
