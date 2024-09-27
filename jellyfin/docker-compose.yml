@@ -108,8 +108,8 @@ services:
       - /home/nlxdodge/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
       - /home/nlxdodge/configurations/sonarr/config:/config
       - /mnt/movies1/Series:/tv
-      - /mnt/movies1/Anime:/anime
-      - /mnt/movies1/Downloads:/downloads
+      - /mnt/movies1/Anime:/data/Anime
+      - /mnt/movies1/Downloads:/data/Downloads
     labels:
       - "traefik.http.routers.sonarr.rule=Host(`sonarr.gerbenveenhof.nl`)"
       - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
@@ -128,8 +128,8 @@ services:
     volumes:
       - /home/nlxdodge/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
       - /home/nlxdodge/configurations/radarr:/config
-      - /mnt/movies1/Movies:/movies
-      - /mnt/movies1/Downloads:/downloads
+      - /mnt/movies1/Movies:/data/Movies
+      - /mnt/movies1/Downloads:/data/Downloads
     labels:
       - "traefik.http.routers.radarr.rule=Host(`radarr.gerbenveenhof.nl`)"
       - "traefik.http.services.radarr.loadbalancer.server.port=7878"
