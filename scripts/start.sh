@@ -1,7 +1,10 @@
 #!/bin/bash
 git pull
 
-services=("traefik" "portainer" "scrutiny" "jellyfin")
+services=("$@")
+if [ ${#services[@]} -eq 0 ]; then
+  services=("traefik" "portainer" "scrutiny" "jellyfin")
+fi
 
 for service in "${services[@]}"; do
   cd "../$service/"
