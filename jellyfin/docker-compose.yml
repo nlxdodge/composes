@@ -107,7 +107,7 @@ services:
     volumes:
       - /home/nlxdodge/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
       - /home/nlxdodge/configurations/sonarr/config:/config
-      - /mnt/movies1/Series:/tv
+      - /mnt/movies1/Series:/data/Series
       - /mnt/movies1/Anime:/data/Anime
       - /mnt/movies1/Downloads:/data/Downloads
     labels:
