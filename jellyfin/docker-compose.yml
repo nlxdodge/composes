@@ -6,8 +6,8 @@ services:
     user: "1000:1000"
     restart: unless-stopped
     volumes:
-      - /home/nlxdodge/configurations/jellyfin/config:/config
-      - /home/nlxdodge/configurations/jellyfin/cache:/cache
+      - ~/configurations/jellyfin/config:/config
+      - ~/configurations/jellyfin/cache:/cache
       - type: bind
         source: /mnt/movies1
         target: /media
@@ -31,7 +31,7 @@ services:
     ports:
       - 5055:5055
     volumes:
-      - /home/nlxdodge/configurations/jellyseer:/app/config
+      - ~/configurations/jellyseer:/app/config
     labels:
       - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.gerbenveenhof.nl`)"
       - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
@@ -49,7 +49,7 @@ services:
     environment:
       HOME: /config
     volumes:
-      - /home/nlxdodge/configurations/rtorrent:/config
+      - ~/configurations/rtorrent:/config
       - /mnt/movies1:/data
     ports:
       - 3000:3000
@@ -94,7 +94,7 @@ services:
     environment:
       HOME: /config
     volumes:
-      - /home/nlxdodge/configurations/rtorrent:/config
+      - ~/configurations/rtorrent:/config
       - /mnt/movies1:/data
 
   sonarr:
@@ -105,8 +105,8 @@ services:
     container_name: sonarr
     restart: unless-stopped
     volumes:
-      - /home/nlxdodge/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
-      - /home/nlxdodge/configurations/sonarr/config:/config
+      - ~/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
+      - ~/configurations/sonarr/config:/config
       - /mnt/movies1/Series:/data/Series
       - /mnt/movies1/Anime:/data/Anime
       - /mnt/movies1/Downloads:/data/Downloads
@@ -126,8 +126,8 @@ services:
     container_name: radarr
     restart: unless-stopped
     volumes:
-      - /home/nlxdodge/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
-      - /home/nlxdodge/configurations/radarr:/config
+      - ~/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
+      - ~/configurations/radarr:/config
       - /mnt/movies1/Movies:/data/Movies
       - /mnt/movies1/Downloads:/data/Downloads
     labels:
@@ -146,7 +146,7 @@ services:
     container_name: prowlarr
     restart: unless-stopped
     volumes:
-      - /home/nlxdodge/configurations/prowlarr:/config
+      - ~/configurations/prowlarr:/config
     labels:
       - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.gerbenveenhof.nl`)"
       - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"

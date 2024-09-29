@@ -9,8 +9,8 @@ services:
       - "9500:8080"
     volumes:
       - /run/udev:/run/udev:ro
-      - /home/nlxdodge/configurations/scrutiny/config:/opt/scrutiny/config
-      - /home/nlxdodge/configurations/scrutiny/influxdb:/opt/scrutiny/influxdb
+      - ~/configurations/scrutiny/config:/opt/scrutiny/config
+      - ~/configurations/scrutiny/influxdb:/opt/scrutiny/influxdb
     devices:
       - "/dev/sda"
       - "/dev/sdb"
