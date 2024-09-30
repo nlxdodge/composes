@@ -8,7 +8,7 @@ This will (remove if still there) and setup all the containers used in this repo
 
 ## Overview
 
-![Network Overview](./diagram.svg)
+![Network Overview](./diagram.png)
 
 ## All services
 
