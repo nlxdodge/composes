@@ -138,6 +138,18 @@ services:
       - "traefik.docker.network=global"
       - "traefik.enable=true"
 
+  bazarr:
+    image: lscr.io/linuxserver/bazarr
+    container_name: bazarr
+    volumes:
+      - ~/configurations/bazarr:/config
+      - /mnt/movies1/Movies:/data/Movies
+      - /mnt/movies1/Series:/data/Series
+      - /mnt/movies1/Anime:/data/Anime
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+
   prowlarr:
     image: linuxserver/prowlarr
     depends_on:
