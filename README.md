@@ -25,7 +25,7 @@ This will (remove if still there) and setup all the containers used in this repo
 | Jellyfin  | 8096 | Mediaviewer (Plex alterative)        |
 | Sonarr    | 8989 | Sonarr Web-UI                        |
 | Portainer | 9000 | Container Web-UI                     |
-| Scrutiny  | 9500 | S.M.A.R.T. Web-UI for failing drives |
+| Scrutiny  | 9001 | S.M.A.R.T. Web-UI for failing drives |
 | Prowlarr  | 9696 | Prowlarr Web-UI                      |
 
 ## Commands
