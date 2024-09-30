@@ -23,3 +23,8 @@ services:
       - "traefik.http.routers.scrutiny.entrypoints=websecure"
       - "traefik.docker.network=global"
       - "traefik.enable=true"
+
+networks:
+  default:
+    external:
+      name: global  
