@@ -6,7 +6,7 @@ services:
     cap_add:
       - SYS_RAWIO
     ports:
-      - "9500:8080"
+      - "9001:8080"
     volumes:
       - /run/udev:/run/udev:ro
       - ~/configurations/scrutiny/config:/opt/scrutiny/config
@@ -18,8 +18,13 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.http.routers.scrutiny.rule=Host(`scrutiny.gerbenveenhof.nl`)"
-      - "traefik.http.services.scrutiny.loadbalancer.server.port=9500"
+      - "traefik.http.services.scrutiny.loadbalancer.server.port=9001"
       - "traefik.http.routers.scrutiny.tls.certresolver=letsencrypt"
       - "traefik.http.routers.scrutiny.entrypoints=websecure"
       - "traefik.docker.network=global"
       - "traefik.enable=true"
+
+networks:
+  default:
+    external:
+      name: global  
