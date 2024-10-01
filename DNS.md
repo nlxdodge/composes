@@ -21,3 +21,4 @@ Copy and paste them over but supplying the IP_ADDRESS of your server's outbound 
 | radarr                     | A    | <IP_ADDRESS>                             |
 | sonarr                     | A    | <IP_ADDRESS>                             |
 | prowlarr                   | A    | <IP_ADDRESS>                             |
+| bazarr                     | A    | <IP_ADDRESS>                             |

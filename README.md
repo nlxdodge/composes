@@ -12,21 +12,22 @@ This will (remove if still there) and setup all the containers used in this repo
 
 ## All services
 
-| Name      | Port | Description                          |
-| --------- | ---- | ------------------------------------ |
-| Flood     | 3000 | Rtorrent Web-UI                      |
-| Jellyseer | 5055 | Media Requester Web-UI               |
-| Postgres  | 5432 | Relational Database                  |
-| Gluetun   | 6881 | VPN Container                        |
-| RTorrent  | 6881 | Torrent Container                    |
-| SonarQube | 7000 | Code Quality and Security scanner    |
-| Radarr    | 7878 | Radarr Web-UI                        |
-| Traefik   | 8080 | gateway (Proxy and SSL as well)      |
-| Jellyfin  | 8096 | Mediaviewer (Plex alterative)        |
-| Sonarr    | 8989 | Sonarr Web-UI                        |
-| Portainer | 9000 | Container Web-UI                     |
-| Scrutiny  | 9001 | S.M.A.R.T. Web-UI for failing drives |
-| Prowlarr  | 9696 | Prowlarr Web-UI                      |
+| Name      | Port | Description                       |
+| --------- | ---- | --------------------------------- |
+| Flood     | 3000 | Secure UI for Torrents            |
+| Jellyseer | 5055 | Media Requester                   |
+| Postgres  | 5432 | Relational Database               |
+| Bazarr    | 6767 | Subtitle downloader               |
+| Gluetun   | 6881 | VPN Network for other containers  |
+| RTorrent  | 6881 | Torrent Downloader                |
+| SonarQube | 7000 | Code Quality and Security scanner |
+| Radarr    | 7878 | Movie finder                      |
+| Traefik   | 8080 | Gateway                           |
+| Jellyfin  | 8096 | Mediaviewer                       |
+| Sonarr    | 8989 | Series/Anime finder               |
+| Portainer | 9000 | Container Management              |
+| Scrutiny  | 9001 | S.M.A.R.T. viewer/notifier        |
+| Prowlarr  | 9696 | Indexer for Radarr & Sonarr       |
 
 ## Commands
 
@@ -49,5 +50,6 @@ Made an oopsie? remove everything with `./remove.sh`
 
 ```txt
 ~/composes/ -> this repository.
-~/configurations/ -> for all the configurations used in containers.
+~/composes/scripts -> houses all the scripts in the composes project to start the whole stack.
+~/configurations/ -> for all the configurations used in containers, here everything will be stored.
 ```
