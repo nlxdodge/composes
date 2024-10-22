@@ -3,7 +3,7 @@ git pull
 
 services=("$@")
 if [ ${#services[@]} -eq 0 ]; then
-  services=("traefik" "portainer" "scrutiny" "jellyfin")
+  services=("traefik" "portainer" "scrutiny" "jellyfin" "bedrock")
 fi
 
 for service in "${services[@]}"; do

@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  bedrock:
+    image: 05jchambers/legendary-bedrock-container:latest
+    container_name: bedrock
+    restart: unless-stopped
+    ports:
+      - 19133:19133
+      - 19133:19133/udp
+      - 19132:19132
+      - 19132:19132/udp
+    volumes:
+      - /home/nlxdodge/servers/bedrock:/minecraft
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    entrypoint: [ "/bin/bash", "/scripts/start.sh" ]
+    environment:
+      PortIPV4: "19132"
+      PortIPV6: "19133"
+      TZ: "Europe/Amsterdam" # Timezone
+      BackupCount: 2 # Number of rolling backups to keep
