@@ -12,6 +12,7 @@ services:
     tty: true  
     environment:
       EULA: "TRUE"
+      SERVER_NAME: "Korf Craft, nu met nog meer drama!"
       MAX_PLAYERS: "10"
       DIFFICULTY: "normal"
       LEVEL_SEED: "31563250179158"
