@@ -5,10 +5,7 @@ services:
     container_name: bedrock
     restart: unless-stopped
     ports:
-      - 19132:19132
       - 19132:19132/udp
-      - 19133:19133
-      - 19133:19133/udp
     volumes:
       - /home/nlxdodge/servers/bedrock:/minecraft
     stdin_open: true
