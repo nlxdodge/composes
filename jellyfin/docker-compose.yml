@@ -9,7 +9,10 @@ services:
       - ~/configurations/jellyfin/cache:/cache
       - type: bind
         source: /mnt/movies1
-        target: /media
+        target: /media1
+        - type: bind
+        source: /mnt/movies2
+        target: /media2
     extra_hosts:
       - host.docker.internal:host-gateway
     labels:
@@ -47,7 +50,8 @@ services:
       HOME: /config
     volumes:
       - ~/configurations/rtorrent:/config
-      - /mnt/movies1:/data
+      - /mnt/movies1:/data/media1
+      - /mnt/movies2:/data/media2
     ports:
       - 3000:3000
     labels:
@@ -104,7 +108,7 @@ services:
       - ~/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
       - ~/configurations/sonarr/config:/config
       - /mnt/movies1/Series:/data/Series
-      - /mnt/movies1/Anime:/data/Anime
+      - /mnt/movies2/Anime:/data/Anime
       - /mnt/movies1/Downloads:/data/Downloads
     labels:
       - "traefik.http.routers.sonarr.rule=Host(`sonarr.gerbenveenhof.nl`)"
