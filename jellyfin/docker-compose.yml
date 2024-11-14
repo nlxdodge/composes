@@ -141,7 +141,7 @@ services:
       - ~/configurations/bazarr:/config
       - /mnt/movies1/Movies:/data/Movies
       - /mnt/movies1/Series:/data/Series
-      - /mnt/movies1/Anime:/data/Anime
+      - /mnt/movies2:/data/movies2
     ports:
       - 6767:6767
     restart: unless-stopped
