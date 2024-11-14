@@ -10,7 +10,7 @@ services:
       - type: bind
         source: /mnt/movies1
         target: /media1
-        - type: bind
+      - type: bind
         source: /mnt/movies2
         target: /media2
     extra_hosts:
