@@ -44,7 +44,6 @@ services:
   flood:
     image: jesec/flood
     container_name: flood
-    user: "1000:1000"
     restart: unless-stopped
     command: --port 3000 --allowedpath /data
     environment:
@@ -87,7 +86,6 @@ services:
       - gluetun
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: rtorrent
-    user: "1000:1000"
     restart: unless-stopped
     command:
       [
