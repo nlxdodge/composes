@@ -97,8 +97,7 @@ services:
       HOME: /config
     volumes:
       - ~/configurations/rtorrent:/config
-      - /mnt/movies1:/data/media1
-      - /mnt/movies2:/data/media2
+      - /mnt/movies1:/data
 
   sonarr:
     image: linuxserver/sonarr
@@ -148,7 +147,7 @@ services:
       - ~/configurations/bazarr:/config
       - /mnt/movies1/Movies:/data/Movies
       - /mnt/movies1/Series:/data/Series
-      - /mnt/movies2/Anime:/data/movies2/Anime
+      - /mnt/movies2/Anime:/data/Anime
     ports:
       - 6767:6767
     restart: unless-stopped
