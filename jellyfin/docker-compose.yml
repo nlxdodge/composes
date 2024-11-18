@@ -69,7 +69,6 @@ services:
     image: qmcgaw/gluetun
     container_name: gluetun
     restart: unless-stopped
-    user: 1000:1000
     cap_add:
       - NET_ADMIN
     environment:
@@ -109,7 +108,6 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: sonarr
     restart: unless-stopped
-    user: 1000:1000
     volumes:
       - ~/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
       - ~/configurations/sonarr/config:/config
@@ -131,7 +129,6 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: radarr
     restart: unless-stopped
-    user: 1000:1000
     volumes:
       - ~/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
       - ~/configurations/radarr:/config
@@ -149,7 +146,6 @@ services:
     image: lscr.io/linuxserver/bazarr
     container_name: bazarr
     restart: unless-stopped
-    user: 1000:1000
     volumes:
       - ~/configurations/bazarr:/config
       - /mnt/movies1/Movies:/data/Movies
@@ -165,7 +161,6 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: prowlarr
     restart: unless-stopped
-    user: 1000:1000
     volumes:
       - ~/configurations/prowlarr:/config
     labels:
