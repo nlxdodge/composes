@@ -69,6 +69,7 @@ services:
     image: qmcgaw/gluetun
     container_name: gluetun
     restart: unless-stopped
+    user: 1000:1000
     cap_add:
       - NET_ADMIN
     environment:
