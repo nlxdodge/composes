@@ -7,7 +7,7 @@ if [ ${#services[@]} -eq 0 ]; then
 fi
 
 for service in "${services[@]}"; do
-  cd "~/composes/$service/"
+  cd ~/composes/$service/
   pushd .
   docker-compose stop
   popd
