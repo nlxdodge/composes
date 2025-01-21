@@ -7,7 +7,7 @@ if [ ${#services[@]} -eq 0 ]; then
 fi
 
 for service in "${services[@]}"; do
-  cd "../$service/"
+  cd "~/composes/$service/"
   pushd .
   docker-compose down
   docker-compose up -d
