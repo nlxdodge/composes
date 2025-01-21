@@ -97,7 +97,9 @@ services:
       HOME: /config
     volumes:
       - ~/configurations/rtorrent:/config
-      - /mnt/movies1:/data
+      - /mnt/movies1/Series:/data/Series
+      - /mnt/movies2/Anime:/data/Anime
+      - /mnt/movies1/Downloads:/data/Downloads
 
   sonarr:
     image: linuxserver/sonarr
