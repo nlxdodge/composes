@@ -51,8 +51,10 @@ services:
       HOME: /config
     volumes:
       - ~/configurations/rtorrent:/config
-      - /mnt/movies1:/data/media1
-      - /mnt/movies2:/data/media2
+      - /mnt/movies1/Downloads:/data/Downloads
+      - /mnt/movies1/Movies:/data/Movies
+      - /mnt/movies1/Series:/data/Series
+      - /mnt/movies2/Anime:/data/Anime
     ports:
       - 3000:3000
     labels:
