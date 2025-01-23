@@ -127,5 +127,6 @@ system.daemon.set = true
 # Fixes for rtorrent 
 schedule2 = clean_trackers, 10, 1800, "execute.capture_nothrow=python,/opt/etc/rtorrent/trackerfraese.py"
 method.set_key = event.download.inserted_new, whatever, "execute.nothrow=python,/opt/etc/rtorrent/trackerfraese.py,$d.hash="
+network.http.ssl_verify_peer.set = 0
 
 ### END of rtorrent.rc ###
