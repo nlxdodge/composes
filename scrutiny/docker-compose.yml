@@ -5,6 +5,7 @@ services:
     image: ghcr.io/analogj/scrutiny:master-omnibus
     cap_add:
       - SYS_RAWIO
+      - SYS_ADMIN
     ports:
       - "9001:8080"
     volumes:
@@ -27,4 +28,4 @@ services:
 networks:
   default:
     external:
-      name: global  
+      name: global
