@@ -95,12 +95,12 @@ services:
       - USER=${TRANSMISSION_USERNAME}
       - PASS=${TRANSMISSION_PASSWORD}
     volumes:
-      - ~/configurations/transmission:/config
+      - ~/configurations/transmission/config:/config
       - ~/configurations/transmission/watch:/watch
       - /mnt/movies1/Series:/Series
       - /mnt/movies1/Movies:/Movies
       - /mnt/movies2/Anime:/Anime
-      - /mnt/movies1/Downloads:/Downloads
+      - /mnt/movies1/Downloads:/downloads
 
   sonarr:
     image: linuxserver/sonarr
