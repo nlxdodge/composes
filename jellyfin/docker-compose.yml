@@ -79,9 +79,12 @@ services:
       - SERVER_REGIONS=Netherlands
     ports:
       - 9696:9696 # prowlarr
-      - 6881:6881 # rtorrent download
+      - 6881:6881 # rtorrent
       - 7878:7878 # radarr
       - 8989:8989 # sonarr
+      - 9091:9091 # transmission
+      - 51413:51413 # transmission
+      - 51413:51413/udp # transmission
 
   rtorrent:
     image: jesec/rtorrent
@@ -99,13 +102,14 @@ services:
       HOME: /config
     volumes:
       - ~/configurations/rtorrent:/config
+      - /mnt/movies1/Movies:/data/Movies
       - /mnt/movies1/Series:/data/Series
       - /mnt/movies2/Anime:/data/Anime
       - /mnt/movies1/Downloads:/data/Downloads
 
   transmission:
     image: lscr.io/linuxserver/transmission
-        depends_on:
+    depends_on:
       - gluetun
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: transmission
@@ -116,10 +120,6 @@ services:
       - /mnt/movies1/Movies:/Movies
       - /mnt/movies2/Anime:/Anime
       - /mnt/movies1/Downloads:/Downloads
-    ports:
-      - 9091:9091
-      - 51413:51413
-      - 51413:51413/udp
 
   sonarr:
     image: linuxserver/sonarr
