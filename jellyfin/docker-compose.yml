@@ -96,6 +96,7 @@ services:
       - PASS=${TRANSMISSION_PASSWORD}
     volumes:
       - ~/configurations/transmission:/config
+      - ~/configurations/transmission/watch:/watch
       - /mnt/movies1/Series:/Series
       - /mnt/movies1/Movies:/Movies
       - /mnt/movies2/Anime:/Anime
