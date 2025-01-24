@@ -84,7 +84,6 @@ services:
       - 8989:8989 # sonarr
       - 9091:9091 # transmission
       - 51413:51413 # transmission
-      - 51413:51413/udp # transmission
 
   rtorrent:
     image: jesec/rtorrent
