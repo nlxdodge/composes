@@ -103,6 +103,24 @@ services:
       - /mnt/movies2/Anime:/data/Anime
       - /mnt/movies1/Downloads:/data/Downloads
 
+  transmission:
+    image: lscr.io/linuxserver/transmission
+        depends_on:
+      - gluetun
+    network_mode: "service:gluetun" # use gluetun vpn container
+    container_name: transmission
+    restart: unless-stopped
+    volumes:
+      - ~/configurations/transmission:/config
+      - /mnt/movies1/Series:/Series
+      - /mnt/movies1/Movies:/Movies
+      - /mnt/movies2/Anime:/Anime
+      - /mnt/movies1/Downloads:/Downloads
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+
   sonarr:
     image: linuxserver/sonarr
     depends_on:
