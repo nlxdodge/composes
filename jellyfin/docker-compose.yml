@@ -91,6 +91,9 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: transmission
     restart: unless-stopped
+    environment:
+      - USER=${TRANSMISSION_USERNAME}
+      - PASS=${TRANSMISSION_PASSWORD}
     volumes:
       - ~/configurations/transmission:/config
       - /mnt/movies1/Series:/Series

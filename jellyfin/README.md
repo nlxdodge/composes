@@ -9,6 +9,8 @@ Here replace the username and password with what you just have generated.
 ```txt
 OPENVPN_USER=
 OPENVPN_PASSWORD=
+TRANSMISSION_USERNAME=
+TRANSMISSION_PASSWORD=
 ```
 
 Next either use Docker or Podman to create the stack.
