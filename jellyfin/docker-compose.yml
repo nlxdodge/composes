@@ -100,7 +100,8 @@ services:
       - /mnt/movies1/Series:/Series
       - /mnt/movies1/Movies:/Movies
       - /mnt/movies2/Anime:/Anime
-      - /mnt/movies1/Downloads:/downloads
+      - /mnt/movies1/incomplete:/downloads
+      - /mnt/movies1/Downloads:/data/Downloads
 
   sonarr:
     image: linuxserver/sonarr
