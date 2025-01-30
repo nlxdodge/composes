@@ -29,8 +29,6 @@ services:
     restart: unless-stopped
     environment:
       - LOG_LEVEL=debug
-    ports:
-      - 5055:5055
     volumes:
       - ~/configurations/jellyseer:/app/config
     labels:
@@ -55,8 +53,6 @@ services:
       - /mnt/movies1/Movies:/data/Movies
       - /mnt/movies1/Series:/data/Series
       - /mnt/movies2/Anime:/data/Anime
-    ports:
-      - 3000:3000
     labels:
       - "traefik.http.routers.flood.rule=Host(`flood.gerbenveenhof.nl`)"
       - "traefik.http.services.flood.loadbalancer.server.port=3000"
@@ -153,8 +149,6 @@ services:
       - /mnt/movies1/Movies:/data/Movies
       - /mnt/movies1/Series:/data/Series
       - /mnt/movies2/Anime:/data/Anime
-    ports:
-      - 6767:6767
     labels:
       - "traefik.http.routers.bazarr.rule=Host(`bazarr.gerbenveenhof.nl`)"
       - "traefik.http.services.bazarr.loadbalancer.server.port=6767"
