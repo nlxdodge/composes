@@ -155,6 +155,13 @@ services:
       - /mnt/movies2/Anime:/data/Anime
     ports:
       - 6767:6767
+    labels:
+      - "traefik.http.routers.bazarr.rule=Host(`bazarr.gerbenveenhof.nl`)"
+      - "traefik.http.services.bazarr.loadbalancer.server.port=6767"
+      - "traefik.http.routers.bazarr.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.bazarr.entrypoints=websecure"
+      - "traefik.docker.network=global"
+      - "traefik.enable=true"
 
   prowlarr:
     image: linuxserver/prowlarr
