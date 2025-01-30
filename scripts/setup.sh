@@ -5,4 +5,3 @@ docker network inspect global >/dev/null 2>&1
 ## setup and copy over rtorrent confiruration
 mkdir -p ~/configurations/rtorrent
 mkdir -p ~/servers/bedrock
-cp ~/composes/jellyfin/rtorrent.rc ~/configurations/rtorrent/rtorrent.rc
