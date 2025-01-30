@@ -7,7 +7,7 @@ services:
       - SYS_RAWIO
       - SYS_ADMIN
     ports:
-      - "9001:8080"
+      - "8080:8080"
     volumes:
       - /run/udev:/run/udev:ro
       - ~/configurations/scrutiny/config:/opt/scrutiny/config
