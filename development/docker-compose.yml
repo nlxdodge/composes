@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   sonarqube:
-    image: sonarqube:lts
+    image: sonarqube:lts-community
     container_name: sonarqube
     restart: unless-stopped
     depends_on:
@@ -16,18 +16,16 @@ services:
       - sonarqube_extensions:/opt/sonarqube/extensions
       - sonarqube_logs:/opt/sonarqube/logs
       - sonarqube_temp:/opt/sonarqube/temp
-    ports:
-      - 7000:9000
     labels:
       - "traefik.http.routers.sonarqube.rule=Host(`sonarqube.gerbenveenhof.nl`)"
-      - "traefik.http.services.sonarqube.loadbalancer.server.port=6000"
+      - "traefik.http.services.sonarqube.loadbalancer.server.port=9000"
       - "traefik.http.routers.sonarqube.tls.certresolver=letsencrypt"
       - "traefik.http.routers.sonarqube.entrypoints=websecure"
-      - "traefik.docker.network=global"
+      - "traefik.docker.network=development"
       - "traefik.enable=true"
 
   postgres:
-    image: postgres:12
+    image: postgres:latest
     environment:
       POSTGRES_DB: development
       POSTGRES_USER: ${POSTGRES_USER}
@@ -35,14 +33,12 @@ services:
     volumes:
       - postgresql:/var/lib/postgresql/
       - postgresql_data:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
     labels:
       - "traefik.http.routers.postgres.rule=Host(`postgres.gerbenveenhof.nl`)"
       - "traefik.http.services.postgres.loadbalancer.server.port=5432"
       - "traefik.http.routers.postgres.tls.certresolver=letsencrypt"
       - "traefik.http.routers.postgres.entrypoints=websecure"
-      - "traefik.docker.network=global"
+      - "traefik.docker.network=development"
       - "traefik.enable=true"
 
 volumes:
@@ -57,4 +53,4 @@ volumes:
 networks:
   default:
     external:
-      name: global
+      name: development
