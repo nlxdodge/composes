@@ -4,6 +4,10 @@ services:
     image: jellyfin/jellyfin
     container_name: jellyfin
     restart: unless-stopped
+    devices:
+      - /dev/dri:/dev/dri
+    group_add:
+      - video
     volumes:
       - ~/configurations/jellyfin/config:/config
       - ~/configurations/jellyfin/cache:/cache
