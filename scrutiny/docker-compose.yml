@@ -15,11 +15,9 @@ services:
       - "/dev/sdb"
       - "/dev/sdc"
     restart: unless-stopped
-    ports:
-      - "8001:8080"
     labels:
       - "traefik.http.routers.scrutiny.rule=Host(`scrutiny.gerbenveenhof.nl`)"
-      - "traefik.http.services.scrutiny.loadbalancer.server.port=8001"
+      - "traefik.http.services.scrutiny.loadbalancer.server.port=8080"
       - "traefik.http.routers.scrutiny.tls.certresolver=letsencrypt"
       - "traefik.http.routers.scrutiny.entrypoints=websecure"
       - "traefik.enable=true"
