@@ -1,6 +1,6 @@
 services:
   portfolio:
-    image: ../../portfolio-astro/Dockerfile
+    image: ../../portfolio-astro
     container_name: portfolio
     restart: unless-stopped
     ports:
