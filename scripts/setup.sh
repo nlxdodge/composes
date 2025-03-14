@@ -1,6 +1,7 @@
-## update repository and create global network for all containers to share if needed
-git pull
-git pull origin master -- ~/composes/portfolio-astro
+## update repositories
+source pull.sh
+
+## create global network for all containers to share if needed
 docker network inspect global >/dev/null 2>&1
 
 ## setup and copy over rtorrent confiruration
