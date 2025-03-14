@@ -12,6 +12,7 @@ Check out the [DNS](DNS.md) settings to manually set the right url's again.
 | Name         | Port  | Description                       |
 | ------------ | ----- | --------------------------------- |
 | Flood        | 3000  | Front-end Torrent Interface       |
+| Portfolio    | 5000  | Self hosted portfolio             |
 | Jellyseer    | 5055  | Media Requester for Jellyfin      |
 | Postgres     | 5432  | Relational Database               |
 | Bazarr       | 6767  | Subtitles downloader              |
