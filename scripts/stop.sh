@@ -1,5 +1,6 @@
 #!/bin/bash
 git pull
+git pull origin master -- ~/composes/portfolio-astro
 
 services=("$@")
 if [ ${#services[@]} -eq 0 ]; then
