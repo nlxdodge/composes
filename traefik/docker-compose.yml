@@ -8,6 +8,7 @@ services:
     restart: unless-stopped
     command:
       - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
       - "--providers.file.directory=/etc/traefik"
       - "--entryPoints.traefik.address=:8090"
       - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
