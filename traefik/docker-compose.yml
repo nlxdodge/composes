@@ -8,7 +8,13 @@ services:
     restart: unless-stopped
     command:
       - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
       - "--providers.file.directory=/etc/traefik"
+      - "--providers.file.watch=true"
+      - "--entryPoints.websecure.address=:443"
+      - "--entryPoints.traefik.address=:8090"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.letsencrypt.acme.email=contact@gerbenveenhof.nl"
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
     ports:
@@ -24,6 +30,7 @@ services:
       - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.docker.network=global"
+      - "traefik.enable=true"
 
 volumes:
   acme-data:
