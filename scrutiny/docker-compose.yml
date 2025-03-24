@@ -6,10 +6,9 @@ services:
     cap_add:
       - SYS_RAWIO
       - SYS_ADMIN
-    environment:
-      - SCRUTINY_PORT=8081
     volumes:
       - /run/udev:/run/udev:ro
+      - ./scrutiny.yaml:/opt/scrutiny/config/scrutiny.yaml
       - ~/configurations/scrutiny/config:/opt/scrutiny/config
       - ~/configurations/scrutiny/influxdb:/opt/scrutiny/influxdb
     devices:
