@@ -6,15 +6,9 @@ services:
     container_name: traefik
     hostname: traefik
     restart: unless-stopped
-    command:   
-      - "--api.insecure=true"
+    command:
       - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
       - "--providers.file.directory=/etc/traefik"
-      - "--providers.file.watch=true"
-      - "--entryPoints.websecure.address=:443"
-      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
-      - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.letsencrypt.acme.email=contact@gerbenveenhof.nl"
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
     ports:
@@ -26,11 +20,10 @@ services:
       - ./bluemap.yml:/etc/traefik/bluemap.yml
     labels:
       - "traefik.http.routers.traefik.rule=Host(`traefik.gerbenveenhof.nl`)"
-      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8090"
       - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.docker.network=global"
-      - "traefik.enable=true"
 
 volumes:
   acme-data:
