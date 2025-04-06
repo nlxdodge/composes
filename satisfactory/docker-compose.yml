@@ -1,0 +1,21 @@
+services:
+  satisfactory-server:
+    container_name: 'satisfactory'
+    hostname: 'satisfactory'
+    image: 'wolveix/satisfactory-server:latest'
+    ports:
+      - '7777:7777/tcp'
+      - '7777:7777/udp'
+      - '8888:8888/tcp'
+    volumes:
+      - './satisfactory-server:/config'
+    environment:
+      - MAXPLAYERS=6
+      - STEAMBETA=true
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
