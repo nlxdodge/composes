@@ -1,7 +1,6 @@
 services:
   satisfactory-server:
     container_name: 'satisfactory'
-    hostname: 'satisfactory'
     image: 'wolveix/satisfactory-server:latest'
     ports:
       - '7777:7777/tcp'
