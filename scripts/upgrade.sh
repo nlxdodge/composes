@@ -1,10 +1,6 @@
 #!/bin/bash
-source pull.sh
-
-services=("$@")
-if [ ${#services[@]} -eq 0 ]; then
-  services=("traefik" "portainer" "scrutiny" "jellyfin" "bedrock" "immich")
-fi
+source helpers/pull.sh
+source helpers/services.sh
 
 for service in "${services[@]}"; do
   cd ~/composes/$service/

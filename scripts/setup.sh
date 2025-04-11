@@ -4,9 +4,8 @@ source pull.sh
 ## create global network for all containers to share if needed
 docker network inspect global >/dev/null 2>&1
 
-## setup and copy over rtorrent confiruration
-mkdir -p ~/configurations/rtorrent
+## setup folders
 mkdir -p ~/servers/bedrock
 
-# clone portfolio repository
+# clone repositories
 git clone https://github.com/nlxdodge/portfolio-astro.git ~/portfolio-astro
