@@ -11,12 +11,9 @@ services:
     volumes:
       - ~/configurations/jellyfin/config:/config
       - ~/configurations/jellyfin/cache:/cache
-      - type: bind
-        source: /mnt/movies1
-        target: /media1
-      - type: bind
-        source: /mnt/movies2
-        target: /media2
+      - /mnt/md0/anime:/md0/anime
+      - /mnt/md0/movies:/md0/movies
+      - /mnt/md0/series:/md0/series
     extra_hosts:
       - host.docker.internal:host-gateway
     labels:
@@ -47,16 +44,15 @@ services:
     image: jesec/flood
     container_name: flood
     restart: unless-stopped
-    user: "1000:1000"
     command: --port 3000 --allowedpath /data
     environment:
       HOME: /config
     volumes:
-      - ~/configurations/rtorrent:/config
-      - /mnt/movies1/Downloads:/data/Downloads
-      - /mnt/movies1/Movies:/data/Movies
-      - /mnt/movies1/Series:/data/Series
-      - /mnt/movies2/Anime:/data/Anime
+      - ~/configurations/flood:/config
+      - /mnt/md0/downloads:/md0/downloads
+      - /mnt/md0/anime:/md0/anime
+      - /mnt/md0/movies:/md0/movies
+      - /mnt/md0/series:/md0/series
     labels:
       - "traefik.http.routers.flood.rule=Host(`flood.gerbenveenhof.nl`)"
       - "traefik.http.services.flood.loadbalancer.server.port=3000"
@@ -97,11 +93,10 @@ services:
     volumes:
       - ~/configurations/transmission/config:/config
       - ~/configurations/transmission/watch:/watch
-      - /mnt/movies1/Series:/Series
-      - /mnt/movies1/Movies:/Movies
-      - /mnt/movies2/Anime:/Anime
-      - /mnt/movies1/incomplete:/downloads
-      - /mnt/movies1/Downloads:/data/Downloads
+      - /mnt/md0/downloads:/md0/downloads
+      - /mnt/md0/anime:/md0/anime
+      - /mnt/md0/movies:/md0/movies
+      - /mnt/md0/series:/md0/series
 
   sonarr:
     image: linuxserver/sonarr
@@ -111,11 +106,10 @@ services:
     container_name: sonarr
     restart: unless-stopped
     volumes:
-      - ~/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
       - ~/configurations/sonarr/config:/config
-      - /mnt/movies1/Series:/data/Series
-      - /mnt/movies2/Anime:/data/Anime
-      - /mnt/movies1/Downloads:/data/Downloads
+      - /mnt/md0/downloads:/md0/downloads
+      - /mnt/md0/anime:/md0/anime
+      - /mnt/md0/series:/md0/series
     labels:
       - "traefik.http.routers.sonarr.rule=Host(`sonarr.gerbenveenhof.nl`)"
       - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
@@ -132,10 +126,9 @@ services:
     container_name: radarr
     restart: unless-stopped
     volumes:
-      - ~/configurations/rtorrent/.local/share/rtorrent/rtorrent.sock:/var/run/rtorrent.sock
       - ~/configurations/radarr:/config
-      - /mnt/movies1/Movies:/data/Movies
-      - /mnt/movies1/Downloads:/data/Downloads
+      - /mnt/md0/downloads:/md0/downloads
+      - /mnt/md0/movies:/md0/movies
     labels:
       - "traefik.http.routers.radarr.rule=Host(`radarr.gerbenveenhof.nl`)"
       - "traefik.http.services.radarr.loadbalancer.server.port=7878"
@@ -150,9 +143,9 @@ services:
     restart: unless-stopped
     volumes:
       - ~/configurations/bazarr:/config
-      - /mnt/movies1/Movies:/data/Movies
-      - /mnt/movies1/Series:/data/Series
-      - /mnt/movies2/Anime:/data/Anime
+      - /mnt/md0/anime:/md0/anime
+      - /mnt/md0/movies:/md0/movies
+      - /mnt/md0/series:/md0/series
     labels:
       - "traefik.http.routers.bazarr.rule=Host(`bazarr.gerbenveenhof.nl`)"
       - "traefik.http.services.bazarr.loadbalancer.server.port=6767"

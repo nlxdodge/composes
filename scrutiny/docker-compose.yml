@@ -15,6 +15,8 @@ services:
       - "/dev/sda"
       - "/dev/sdb"
       - "/dev/sdc"
+      - "/dev/sdd"
+      - "/dev/md0"
     restart: unless-stopped
     labels:
       - "traefik.http.routers.scrutiny.rule=Host(`scrutiny.gerbenveenhof.nl`)"
