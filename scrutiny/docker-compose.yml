@@ -8,11 +8,8 @@ services:
       - SYS_ADMIN
     volumes:
       - /run/udev:/run/udev:ro
-      # - ./scrutiny.yaml:/opt/scrutiny/config/scrutiny.yaml
       - ~/configurations/scrutiny/config:/opt/scrutiny/config
       - ~/configurations/scrutiny/influxdb:/opt/scrutiny/influxdb
-    ports: 
-      - "8900:8900"
     devices:
       - "/dev/sda"
       - "/dev/sdb"
@@ -24,4 +21,11 @@ services:
       - "traefik.http.services.scrutiny.loadbalancer.server.port=8900"
       - "traefik.http.routers.scrutiny.tls.certresolver=letsencrypt"
       - "traefik.http.routers.scrutiny.entrypoints=websecure"
+      - "traefik.docker.network=global"
       - "traefik.enable=true"
+
+
+networks:
+  default:
+    external:
+      name: global      
