@@ -3,8 +3,5 @@ version: 1
 web:
   listen:
     port: 8900
-    host: 0.0.0.0
-    basepath: ''
   influxdb:
-    host: localhost
-    port: 8086
+    port: 8901
