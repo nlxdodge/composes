@@ -3,5 +3,3 @@ version: 1
 web:
   listen:
     port: 8900
-  influxdb:
-    port: 8901
