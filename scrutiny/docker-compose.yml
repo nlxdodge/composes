@@ -11,6 +11,8 @@ services:
       - ./scrutiny.yaml:/opt/scrutiny/config/scrutiny.yaml
       - ~/configurations/scrutiny/config:/opt/scrutiny/config
       - ~/configurations/scrutiny/influxdb:/opt/scrutiny/influxdb
+    ports: 
+      - "8900:8900"
     devices:
       - "/dev/sda"
       - "/dev/sdb"
