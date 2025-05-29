@@ -88,7 +88,7 @@ services:
     volumes:
       - ~/configurations/transmission/config:/config
       - ~/configurations/transmission/watch:/watch
-      - /mnt/md0:/md0
+      - /mnt/md0/downloads:/downloads
 
   sonarr:
     image: linuxserver/sonarr
