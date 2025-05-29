@@ -4,6 +4,7 @@ services:
     image: jellyfin/jellyfin
     container_name: jellyfin
     restart: unless-stopped
+    user: "1000:1000"
     devices:
       - /dev/dri:/dev/dri
     group_add:
@@ -11,9 +12,7 @@ services:
     volumes:
       - ~/configurations/jellyfin/config:/config
       - ~/configurations/jellyfin/cache:/cache
-      - /mnt/md0/anime:/md0/anime
-      - /mnt/md0/movies:/md0/movies
-      - /mnt/md0/series:/md0/series
+      - /mnt/md0:/md0
     extra_hosts:
       - host.docker.internal:host-gateway
     labels:
@@ -28,6 +27,7 @@ services:
     image: fallenbagel/jellyseerr
     container_name: jellyseerr
     restart: unless-stopped
+    user: "1000:1000"
     environment:
       - LOG_LEVEL=debug
     volumes:
@@ -44,15 +44,13 @@ services:
     image: jesec/flood
     container_name: flood
     restart: unless-stopped
+    user: "1000:1000"
     command: --port 3000 --allowedpath /data
     environment:
       HOME: /config
     volumes:
       - ~/configurations/flood:/config
-      - /mnt/md0/downloads:/md0/downloads
-      - /mnt/md0/anime:/md0/anime
-      - /mnt/md0/movies:/md0/movies
-      - /mnt/md0/series:/md0/series
+      - /mnt/md0:/md0
     labels:
       - "traefik.http.routers.flood.rule=Host(`flood.gerbenveenhof.nl`)"
       - "traefik.http.services.flood.loadbalancer.server.port=3000"
@@ -65,6 +63,7 @@ services:
     image: qmcgaw/gluetun
     container_name: gluetun
     restart: unless-stopped
+    user: "1000:1000"
     cap_add:
       - NET_ADMIN
     environment:
@@ -87,16 +86,14 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: transmission
     restart: unless-stopped
+    user: "1000:1000"
     environment:
       - USER=${TRANSMISSION_USERNAME}
       - PASS=${TRANSMISSION_PASSWORD}
     volumes:
       - ~/configurations/transmission/config:/config
       - ~/configurations/transmission/watch:/watch
-      - /mnt/md0/downloads:/md0/downloads
-      - /mnt/md0/anime:/md0/anime
-      - /mnt/md0/movies:/md0/movies
-      - /mnt/md0/series:/md0/series
+      - /mnt/md0:/md0
 
   sonarr:
     image: linuxserver/sonarr
@@ -105,11 +102,10 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: sonarr
     restart: unless-stopped
+    user: "1000:1000"
     volumes:
       - ~/configurations/sonarr/config:/config
-      - /mnt/md0/downloads:/md0/downloads
-      - /mnt/md0/anime:/md0/anime
-      - /mnt/md0/series:/md0/series
+      - /mnt/md0:/md0
     labels:
       - "traefik.http.routers.sonarr.rule=Host(`sonarr.gerbenveenhof.nl`)"
       - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
@@ -125,10 +121,10 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: radarr
     restart: unless-stopped
+    user: "1000:1000"
     volumes:
       - ~/configurations/radarr:/config
-      - /mnt/md0/downloads:/md0/downloads
-      - /mnt/md0/movies:/md0/movies
+      - /mnt/md0:/md0
     labels:
       - "traefik.http.routers.radarr.rule=Host(`radarr.gerbenveenhof.nl`)"
       - "traefik.http.services.radarr.loadbalancer.server.port=7878"
@@ -141,11 +137,10 @@ services:
     image: lscr.io/linuxserver/bazarr
     container_name: bazarr
     restart: unless-stopped
+    user: "1000:1000"
     volumes:
       - ~/configurations/bazarr:/config
-      - /mnt/md0/anime:/md0/anime
-      - /mnt/md0/movies:/md0/movies
-      - /mnt/md0/series:/md0/series
+      - /mnt/md0:/md0
     labels:
       - "traefik.http.routers.bazarr.rule=Host(`bazarr.gerbenveenhof.nl`)"
       - "traefik.http.services.bazarr.loadbalancer.server.port=6767"
@@ -161,6 +156,7 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: prowlarr
     restart: unless-stopped
+    user: "1000:1000"
     volumes:
       - ~/configurations/prowlarr:/config
     labels:
