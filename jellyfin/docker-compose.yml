@@ -70,6 +70,7 @@ services:
       - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
       - SERVER_REGIONS=Netherlands
     ports:
+      - 3000:3000 # flood
       - 9696:9696 # prowlarr
       - 7878:7878 # radarr
       - 8989:8989 # sonarr
