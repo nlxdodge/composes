@@ -4,6 +4,7 @@ services:
     image: jellyfin/jellyfin
     container_name: jellyfin
     restart: unless-stopped
+    user: 1000:1000
     devices:
       - /dev/dri:/dev/dri
     group_add:
@@ -26,6 +27,7 @@ services:
     image: fallenbagel/jellyseerr
     container_name: jellyseerr
     restart: unless-stopped
+    user: 1000:1000
     environment:
       - LOG_LEVEL=debug
     volumes:
@@ -42,6 +44,7 @@ services:
     image: jesec/flood
     container_name: flood
     restart: unless-stopped
+    user: 1000:1000
     command: --port 3000 --allowedpath /data
     environment:
       HOME: /config
@@ -82,13 +85,14 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: transmission
     restart: unless-stopped
+    user: 1000:1000
     environment:
       - USER=${TRANSMISSION_USERNAME}
       - PASS=${TRANSMISSION_PASSWORD}
     volumes:
       - ~/configurations/transmission/config:/config
       - ~/configurations/transmission/watch:/watch
-      - /mnt/md0/downloads:/downloads
+      - /mnt/md0:/md0
 
   sonarr:
     image: linuxserver/sonarr
@@ -97,6 +101,7 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: sonarr
     restart: unless-stopped
+    user: 1000:1000
     volumes:
       - ~/configurations/sonarr/config:/config
       - /mnt/md0:/md0
@@ -115,6 +120,7 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: radarr
     restart: unless-stopped
+    user: 1000:1000
     volumes:
       - ~/configurations/radarr:/config
       - /mnt/md0:/md0
@@ -130,6 +136,7 @@ services:
     image: lscr.io/linuxserver/bazarr
     container_name: bazarr
     restart: unless-stopped
+    user: 1000:1000
     volumes:
       - ~/configurations/bazarr:/config
       - /mnt/md0:/md0
@@ -148,6 +155,7 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: prowlarr
     restart: unless-stopped
+    user: 1000:1000
     volumes:
       - ~/configurations/prowlarr:/config
     labels:
