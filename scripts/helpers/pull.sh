@@ -3,5 +3,5 @@ echo "Pulling composes changes"
 git pull
 
 echo "Pulling portfolio-astro changes"
-git -C ~/portfolio-astro fetch origin
-git -C ~/portfolio-astro reset --hard origin/main
+git -C /home/nlxdodge/portfolio-astro fetch origin
+git -C /home/nlxdodge/portfolio-astro reset --hard origin/main
