@@ -6,9 +6,11 @@ services:
     container_name: traefik
     hostname: traefik
     restart: unless-stopped
-    command:
+    command:   
+      - "--api.dashboard=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
+      - "--providers.file.watch=true"
       - "--providers.file.directory=/etc/traefik"
       - "--entrypoints.websecure.address=:443"
       - "--entryPoints.traefik.address=:8090"
