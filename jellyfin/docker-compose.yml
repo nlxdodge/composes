@@ -4,7 +4,6 @@ services:
     image: jellyfin/jellyfin
     container_name: jellyfin
     restart: unless-stopped
-    user: 1000:1000
     devices:
       - /dev/dri:/dev/dri
     group_add:
@@ -27,7 +26,6 @@ services:
     image: fallenbagel/jellyseerr
     container_name: jellyseerr
     restart: unless-stopped
-    user: 1000:1000
     environment:
       - LOG_LEVEL=debug
     volumes:
@@ -45,7 +43,6 @@ services:
     container_name: flood
     restart: unless-stopped
     command: --port 3000 --allowedpath /md0
-    user: 1000:1000
     environment:
       HOME: /config
     volumes:
@@ -63,7 +60,6 @@ services:
     image: qmcgaw/gluetun
     container_name: gluetun
     restart: unless-stopped
-    user: 1000:1000
     cap_add:
       - NET_ADMIN
     environment:
@@ -86,7 +82,6 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: transmission
     restart: unless-stopped
-    user: 1000:1000
     environment:
       - USER=${TRANSMISSION_USERNAME}
       - PASS=${TRANSMISSION_PASSWORD}
@@ -102,7 +97,6 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: sonarr
     restart: unless-stopped
-    user: 1000:1000
     volumes:
       - /home/nlxdodge/configurations/sonarr/config:/config
       - /mnt/md0:/md0
@@ -121,7 +115,6 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: radarr
     restart: unless-stopped
-    user: 1000:1000
     volumes:
       - /home/nlxdodge/configurations/radarr:/config
       - /mnt/md0:/md0
@@ -137,7 +130,6 @@ services:
     image: lscr.io/linuxserver/bazarr
     container_name: bazarr
     restart: unless-stopped
-    user: 1000:1000
     volumes:
       - /home/nlxdodge/configurations/bazarr:/config
       - /mnt/md0:/md0
@@ -159,7 +151,6 @@ services:
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: prowlarr
     restart: unless-stopped
-    user: 1000:1000
     volumes:
       - /home/nlxdodge/configurations/prowlarr:/config
     labels:
