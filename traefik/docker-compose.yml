@@ -13,20 +13,21 @@ services:
       - "--providers.file.watch=true"
       - "--providers.file.directory=/etc/traefik"
       - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.traefik.address=:8090"
       - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
       - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.letsencrypt.acme.email=contact@gerbenveenhof.nl"
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
     ports:
       - "443:443"
-      - "8080:8080"
+      - "8090:8090"
     volumes:
       - acme-data:/letsencrypt
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./bluemap.yml:/etc/traefik/bluemap.yml
     labels:
       - "traefik.http.routers.traefik.rule=Host(`traefik.gerbenveenhof.nl`)"
-      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8090"
       - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.docker.network=global"
