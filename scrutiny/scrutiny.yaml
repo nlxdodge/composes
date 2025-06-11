@@ -1,5 +1,0 @@
-version: 1
-
-web:
-  listen:
-    port: 8900
