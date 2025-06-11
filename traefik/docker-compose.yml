@@ -10,17 +10,20 @@ services:
       - "--api.dashboard=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--entryPoints.websecure.address=:443"
       - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
       - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.letsencrypt.acme.email=contact@gerbenveenhof.nl"
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--entryPoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entryPoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entryPoints.websecure.address=:443"
     ports:
       - "443:443"
     volumes:
       - acme-data:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
     labels:
+      - "traefik.http.middlewares.secure-headers.headers.sslredirect=true"
       - "traefik.http.routers.traefik.rule=Host(`traefik.gerbenveenhof.nl`)"
       - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.entrypoints=websecure"
