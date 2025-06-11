@@ -90,7 +90,7 @@ services:
     volumes:
       - /home/nlxdodge/configurations/transmission/config:/config
       - /home/nlxdodge/configurations/transmission/watch:/watch
-      - /mnt/md0:/md0
+      - /mnt/md0/downloads:/md0/downloads
 
   sonarr:
     image: linuxserver/sonarr
