@@ -80,6 +80,7 @@ services:
     image: lscr.io/linuxserver/transmission
     depends_on:
       - gluetun
+    user: "1000:1000"
     network_mode: "service:gluetun" # use gluetun vpn container
     container_name: transmission
     restart: unless-stopped
