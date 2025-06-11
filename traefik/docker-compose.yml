@@ -6,14 +6,10 @@ services:
     container_name: traefik
     hostname: traefik
     restart: unless-stopped
-    user: "root"
     command:
-      - "--log.level=DEBUG"
-      - "--api.insecure=true"
+      - "--api.dashboard=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--providers.file.directory=/etc/traefik"
-      - "--providers.file.watch=true"
       - "--entryPoints.websecure.address=:443"
       - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
       - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
@@ -21,14 +17,12 @@ services:
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
     ports:
       - "443:443"
-      - "8080:8080"
     volumes:
       - acme-data:/letsencrypt
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./bluemap.yml:/etc/traefik/bluemap.yml
+      - ./letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     labels:
       - "traefik.http.routers.traefik.rule=Host(`traefik.gerbenveenhof.nl`)"
-      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
       - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.docker.network=global"
@@ -40,4 +34,4 @@ volumes:
 networks:
   default:
     external:
-      name: global  
+      name: global
