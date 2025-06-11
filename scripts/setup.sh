@@ -1,7 +1,7 @@
 source pull.sh
 
 echo "Creating global network"
-docker network inspect global >/dev/null 2>&1
+docker network create global >/dev/null 2>&1 || true
 
 echo "Creating folders"
 mkdir -p /home/nlxdodge/servers/bedrock

@@ -29,7 +29,7 @@ services:
       - "traefik.http.services.traefik.loadbalancer.server.port=8080"
       - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.entrypoints=websecure"
-      - "traefik.docker.network=global"
+      - "traefik.docker.network=traefik"
       - "traefik.enable=true"
 
 volumes:
