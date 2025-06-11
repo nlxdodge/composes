@@ -8,6 +8,7 @@ services:
       - SYS_ADMIN
     volumes:
       - /run/udev:/run/udev:ro
+      - ./scrutiny.yaml:/opt/scrutiny/config/scrutiny.yaml
       - /home/nlxdodge/configurations/scrutiny/config:/opt/scrutiny/config
       - /home/nlxdodge/configurations/scrutiny/influxdb:/opt/scrutiny/influxdb
     devices:
