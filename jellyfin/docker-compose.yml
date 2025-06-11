@@ -43,6 +43,7 @@ services:
     container_name: flood
     restart: unless-stopped
     command: --port 3000 --allowedpath /md0
+    user: "1000:1000"
     environment:
       HOME: /config
     volumes:
