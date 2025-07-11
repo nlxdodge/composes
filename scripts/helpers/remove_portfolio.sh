@@ -2,4 +2,4 @@
 if [[ " ${services[@]} " =~ " portfolio " ]]; then
   docker rm portfolio
   docker image rm portfolio_portfolio
-done
+fi
