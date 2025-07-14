@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  notifiarr:
+    image: golift/notifiarr
+    container_name: notifiarr
+    restart: unless-stopped
+    hostname: notifiarr
+    environment:
+      - NOTIFIARR_API_KEY=YOUR_API_KEY
+      - NOTIFIARR_URL=https://notifiarr.com
+    volumes:
+      - /home/nlxdodge/configurations/notifiarr:/config
+      - /var/run/utmp:/var/run/utmp
+      - /etc/machine-id:/etc/machine-id
+    ports:
+      - 5454:5454
