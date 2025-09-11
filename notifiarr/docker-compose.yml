@@ -6,11 +6,10 @@ services:
     restart: unless-stopped
     hostname: notifiarr
     environment:
-      - NOTIFIARR_API_KEY=YOUR_API_KEY
-      - NOTIFIARR_URL=https://notifiarr.com
+      - NOTIFIARR_API_KEY=
+    ports:
+      - "5454:5454"
     volumes:
       - /home/nlxdodge/configurations/notifiarr:/config
       - /var/run/utmp:/var/run/utmp
       - /etc/machine-id:/etc/machine-id
-    ports:
-      - 5454:5454
