@@ -1,0 +1,8 @@
+global:
+  server:
+    listen: ":9050"
+
+notifiers:
+  discord-main:
+    type: discord
+    url: "${DISCORD_WEBHOOK}"

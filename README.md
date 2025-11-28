@@ -19,11 +19,12 @@ Check out the [DNS](DNS.md) settings to manually set the right url's again.
 | Gluetun      | 6881  | VPN Network for other containers  |
 | SonarQube    | 7000  | Code Quality and Security scanner |
 | Radarr       | 7878  | Movie finder                      |
-| Scrutiny     | 8080  | S.M.A.R.T. viewer/notifier        |
 | Traefik      | 8080  | Proxy/Gateway                     |
 | Jellyfin     | 8096  | Media Viewer                      |
 | Sonarr       | 8989  | Series/Anime finder               |
 | Portainer    | 9000  | Container Management              |
+| Shoutrrr     | 9050  | Notification Management           |
+| Scrutiny     | 9500  | S.M.A.R.T. dashboard              |
 | Prowlarr     | 9696  | Indexer for Radarr & Sonarr       |
 | Transmission | 51413 | Torrent Client                    |
 

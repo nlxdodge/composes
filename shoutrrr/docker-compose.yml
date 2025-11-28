@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  shoutrrr:
+    image: containrrr/shoutrrr
+    container_name: shoutrrr
+    restart: unless-stopped
+    ports:
+      - "9050:9050"
+    volumes:
+      - /shoutrrr.yml:/app/config.yml:ro
