@@ -20,6 +20,7 @@ Check out the [DNS](DNS.md) settings to manually set the right url's again.
 | SonarQube    | 7000  | Code Quality and Security scanner |
 | Radarr       | 7878  | Movie finder                      |
 | Traefik      | 8080  | Proxy/Gateway                     |
+| BlueMap      | 8100  | Bluemap online Minecraft map      |
 | Jellyfin     | 8096  | Media Viewer                      |
 | Sonarr       | 8989  | Series/Anime finder               |
 | Portainer    | 9000  | Container Management              |
