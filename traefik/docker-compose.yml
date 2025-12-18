@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   traefik:
-    image: traefik:v3.0
+    image: dhi.io/traefik:3
     container_name: traefik
     hostname: traefik
     restart: unless-stopped
