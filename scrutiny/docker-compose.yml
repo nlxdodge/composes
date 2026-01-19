@@ -10,7 +10,7 @@ services:
       - /run/udev:/run/udev:ro
       - /home/nlxdodge/configurations/scrutiny/config:/opt/scrutiny/config
       - /home/nlxdodge/configurations/scrutiny/influxdb:/opt/scrutiny/influxdb
-    devices: ${DEVICES}
+    devices: ${DEVICES_LIST}
     restart: unless-stopped
     labels:
       - "traefik.http.routers.scrutiny.rule=Host(`scrutiny.gerbenveenhof.nl`)"
