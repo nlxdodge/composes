@@ -7,7 +7,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - arcane-data:/app/data
     environment:
-      - APP_URL=https://arcane.gerbenveenhof.nl
+      - APP_URL=localhost:3552
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - JWT_SECRET=${JWT_SECRET}
       - LOG_LEVEL=warn
