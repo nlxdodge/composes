@@ -10,7 +10,7 @@ services:
       - APP_URL=https://arcane.gerbenveenhof.nl
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - JWT_SECRET=${JWT_SECRET}
-      - LOG_LEVEL=warn
+      - LOG_LEVEL=info
       - LOG_JSON=false
       - OIDC_ENABLED=false
       - DATABASE_URL=file:data/arcane.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(2500)&_txlock=immediate
@@ -25,3 +25,8 @@ services:
 volumes:
   arcane-data:
     driver: local
+
+networks:
+  default:
+    external:
+      name: global
