@@ -1,0 +1,28 @@
+services:
+  arcane:
+    image: ghcr.io/getarcaneapp/arcane:latest
+    container_name: arcane
+    restart: unless-stopped
+    user: "1000:1000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - arcane-data:/app/data
+    environment:
+      - APP_URL=https://arcane.gerbenveenhof.nl
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+      - LOG_LEVEL=warn
+      - LOG_JSON=false
+      - OIDC_ENABLED=false
+      - DATABASE_URL=file:data/arcane.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(2500)&_txlock=immediate
+    labels:
+      - "traefik.http.routers.arcane.rule=Host(`arcane.gerbenveenhof.nl`)"
+      - "traefik.http.services.arcane.loadbalancer.server.port=3552"
+      - "traefik.http.routers.arcane.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.arcane.entrypoints=websecure"
+      - "traefik.docker.network=global"
+      - "traefik.enable=true"
+
+volumes:
+  arcane-data:
+    driver: local
