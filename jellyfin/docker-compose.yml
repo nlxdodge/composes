@@ -22,19 +22,18 @@ services:
     image: ghcr.io/seerr-team/seerr:latest
     container_name: seerr
     restart: unless-stopped
+    init: true
     depends_on:
       - jellyfin
       - radarr
       - sonarr
-    environment:
-      - LOG_LEVEL=debug
     volumes:
       - /home/nlxdodge/configurations/seerr:/app/config
     labels:
-      - "traefik.http.routers.jellyseerr.rule=Host(`seerr.gerbenveenhof.nl`)"
-      - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
-      - "traefik.http.routers.jellyseerr.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.jellyseerr.entrypoints=websecure"
+      - "traefik.http.routers.seerr.rule=Host(`seerr.gerbenveenhof.nl`)"
+      - "traefik.http.services.seerr.loadbalancer.server.port=5055"
+      - "traefik.http.routers.seerr.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.seerr.entrypoints=websecure"
       - "traefik.docker.network=global"
       - "traefik.enable=true"
 
