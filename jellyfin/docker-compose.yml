@@ -18,9 +18,9 @@ services:
       - "traefik.docker.network=global"
       - "traefik.enable=true"
 
-  jellyseerr:
-    image: fallenbagel/jellyseerr
-    container_name: jellyseerr
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    container_name: seerr
     restart: unless-stopped
     depends_on:
       - jellyfin
@@ -29,9 +29,9 @@ services:
     environment:
       - LOG_LEVEL=debug
     volumes:
-      - /home/nlxdodge/configurations/jellyseer:/app/config
+      - /home/nlxdodge/configurations/seerr:/app/config
     labels:
-      - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.gerbenveenhof.nl`)"
+      - "traefik.http.routers.jellyseerr.rule=Host(`seerr.gerbenveenhof.nl`)"
       - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
       - "traefik.http.routers.jellyseerr.tls.certresolver=letsencrypt"
       - "traefik.http.routers.jellyseerr.entrypoints=websecure"
@@ -132,13 +132,11 @@ services:
     container_name: bazarr
     restart: unless-stopped
     depends_on:
-      - transmission
+      - sonarr
+      - radarr
     volumes:
       - /home/nlxdodge/configurations/bazarr:/config
       - /mnt/md0:/md0
-    depends_on:
-      - sonarr
-      - radarr
     labels:
       - "traefik.http.routers.bazarr.rule=Host(`bazarr.gerbenveenhof.nl`)"
       - "traefik.http.services.bazarr.loadbalancer.server.port=6767"
