@@ -13,4 +13,4 @@ echo "Creating folders"
 mkdir -p /home/nlxdodge/servers/bedrock
 
 echo "Cloning repositories"
-git clone https://github.com/nlxdodge/portfolio-astro.git /home/nlxdodge/portfolio-astro
+git clone https://github.com/nlxdodge/portfolio-astro.git /home/nlxdodge/composes/portfolio/repo

@@ -1,6 +1,5 @@
 #!/bin/bash
 if [[ "${services[@]}" =~ "portfolio" ]]; then
-  docker stop portfolio
-  docker rm portfolio
-  docker image rm portfolio_portfolio
+    echo "Remove portfolio container and image from local registry"
+    docker rmi -f portfolio:latest
 fi

@@ -1,11 +1,11 @@
 services:
   portfolio:
-    build: 
-      context: ../../portfolio-astro
-    container_name: portfolio
+    build:
+      context: .
+    container_name: portfolio/repo
     restart: unless-stopped
     labels:
-      - "traefik.http.routers.portfolio.rule=Host(`test.gerbenveenhof.nl`)"
+      - "traefik.http.routers.portfolio.rule=Host(`portfolio.gerbenveenhof.nl`)"
       - "traefik.http.services.portfolio.loadbalancer.server.port=5000"
       - "traefik.http.routers.portfolio.tls.certresolver=letsencrypt"
       - "traefik.http.routers.portfolio.entrypoints=websecure"

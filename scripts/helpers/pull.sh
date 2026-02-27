@@ -1,7 +1,8 @@
 #!/bin/bash
-echo "Pulling composes changes"
+echo "Switch to composes directory"
+cd /home/nlxdodge/composes
+
+echo "Pulling composes latest Git changes"
 git pull
 
-echo "Pulling portfolio-astro changes"
-git -C /home/nlxdodge/portfolio-astro fetch origin
-git -C /home/nlxdodge/portfolio-astro reset --hard origin/master
+

@@ -2,6 +2,7 @@
 source helpers/pull.sh
 source helpers/services.sh
 source helpers/remove_portfolio.sh
+source helpers/setup_portfolio.sh
 
 for service in "${services[@]}"; do
   cd /home/nlxdodge/composes/$service/
