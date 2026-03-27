@@ -9,25 +9,20 @@ Check out the [DNS](DNS.md) settings to manually set the right url's again.
 
 ## All services
 
-| Name         | Port  | Description                       |
-| ------------ | ----- | --------------------------------- |
-| Flood        | 3000  | Front-end Torrent Interface       |
-| Portfolio    | 5000  | Self hosted portfolio             |
-| Jellyseer    | 5055  | Media Requester for Jellyfin      |
-| Postgres     | 5432  | Relational Database               |
-| Bazarr       | 6767  | Subtitles downloader              |
-| Gluetun      | 6881  | VPN Network for other containers  |
-| SonarQube    | 7000  | Code Quality and Security scanner |
-| Radarr       | 7878  | Movie finder                      |
-| Traefik      | 8080  | Proxy/Gateway                     |
-| BlueMap      | 8100  | Bluemap online Minecraft map      |
-| Jellyfin     | 8096  | Media Viewer                      |
-| Sonarr       | 8989  | Series/Anime finder               |
-| Portainer    | 9000  | Container Management              |
-| Shoutrrr     | 9050  | Notification Management           |
-| Scrutiny     | 9500  | S.M.A.R.T. dashboard              |
-| Prowlarr     | 9696  | Indexer for Radarr & Sonarr       |
-| Transmission | 51413 | Torrent Client                    |
+| Name         | Description                            |
+| ------------ | -------------------------------------- |
+| Arcane       | Dashboard for containers orchestration |
+| Flood        | Torrent Web UI                         |
+| Seerr        | Media Requester Web UI                 |
+| Bazarr       | Subtitles finder                       |
+| Gluetun      | VPN Network                            |
+| Radarr       | Movie finder                           |
+| Traefik      | Proxy/Gateway                          |
+| Jellyfin     | Media Viewer                           |
+| Sonarr       | Series/Anime finder                    |
+| Scrutiny     | S.M.A.R.T. checker and Web UI          |
+| Prowlarr     | Indexer for finding things             |
+| Transmission | Torrenting client                      |
 
 ## Commands
 
