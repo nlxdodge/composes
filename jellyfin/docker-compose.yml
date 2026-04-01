@@ -160,6 +160,22 @@ services:
       - "traefik.docker.network=global"
       - "traefik.enable=true"
 
+  wizarr:
+    image: ghcr.io/wizarrrr/wizarr
+    container_name: wizarr
+    depends_on:
+      - jellyfin
+      - seerr
+    volumes:
+      - /home/nlxdodge/configurations/wizarr:/config
+    labels:
+      - "traefik.http.routers.wizarr.rule=Host(`wizarr.gerbenveenhof.nl`)"
+      - "traefik.http.services.wizarr.loadbalancer.server.port=5690"
+      - "traefik.http.routers.wizarr.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.wizarr.entrypoints=websecure"
+      - "traefik.docker.network=global"
+      - "traefik.enable=true"
+
 networks:
   default:
     external:
