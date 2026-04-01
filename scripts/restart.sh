@@ -1,9 +1,9 @@
 #!/bin/bash
-source scripts/helpers/pull.sh
-source scripts/helpers/services.sh
+source helpers/pull.sh
+source helpers/services.sh
 
 for service in "${services[@]}"; do
-  cd $service/
+  cd /home/nlxdodge/composes/$service/
   pushd .
   docker-compose down
   docker-compose up -d
