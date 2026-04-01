@@ -1,4 +1,4 @@
-source pull.sh
+source ./pull.sh
 
 echo "Creating global network for IPv4 and IPv6"
 DAEMON_CONFIG = '{
