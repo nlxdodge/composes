@@ -4,5 +4,3 @@ cd /home/nlxdodge/composes
 
 echo "Pulling composes latest Git changes"
 git pull
-
-
