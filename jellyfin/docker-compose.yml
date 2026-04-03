@@ -168,7 +168,8 @@ services:
       - prowlarr
     volumes:
       - /home/nlxdodge/configurations/flaresolver:/config
-    ports: "8191:8191"
+    ports:
+      - "8191:8191"
     networks:
       - global
 
