@@ -164,15 +164,13 @@ services:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
     restart: unless-stopped
+    depends_on:
+      - prowlarr
     volumes:
       - /home/nlxdodge/configurations/flaresolver:/config
-    labels:
-      - "traefik.http.routers.flaresolverr.rule=Host(`flaresolverr.gerbenveenhof.nl`)"
-      - "traefik.http.services.flaresolverr.loadbalancer.server.port=8191"
-      - "traefik.http.routers.flaresolverr.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.flaresolverr.entrypoints=websecure"
-      - "traefik.docker.network=global"
-      - "traefik.enable=true"
+    ports: "8191:8191"
+    networks:
+      - global
 
   wizarr:
     image: ghcr.io/wizarrrr/wizarr
