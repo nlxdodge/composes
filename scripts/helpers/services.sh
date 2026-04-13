@@ -1,5 +1,5 @@
 #!/bin/bash
 services=("$@")
 if [ ${#services[@]} -eq 0 ]; then
-  services=("traefik" "arcane" "scrutiny" "jellyfin" "watchtower")
+  services=("traefik" "arcane" "scrutiny" "jellyfin")
 fi
