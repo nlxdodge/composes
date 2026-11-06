@@ -1,0 +1,267 @@
+#!/bin/bash
+set -euo pipefail
+
+# ============================================================================
+# Docker Compose Multi-Service Manager
+# ============================================================================
+# Usage: ./composes {start|stop|restart|upgrade|logs|status|remove} [service]
+# ============================================================================
+
+# Configuration
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+COMPOSES_DIR="$SCRIPT_DIR"
+DEFAULT_SERVICES=("traefik" "arcane" "scrutiny" "jellyfin" "dragonwilds")
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# ============================================================================
+# Helper Functions
+# ============================================================================
+
+log_info() {
+    echo -e "${BLUE}[INFO]${NC} $*"
+}
+
+log_success() {
+    echo -e "${GREEN}[✓]${NC} $*"
+}
+
+log_error() {
+    echo -e "${RED}[✗]${NC} $*" >&2
+}
+
+log_warn() {
+    echo -e "${YELLOW}[!]${NC} $*"
+}
+
+# Run docker-compose command in service directory
+run_compose() {
+    local service=$1
+    shift
+    local cmd=("$@")
+    
+    local service_dir="$COMPOSES_DIR/$service"
+    
+    if [ ! -d "$service_dir" ]; then
+        log_error "Service directory not found: $service_dir"
+        return 1
+    fi
+    
+    if [ ! -f "$service_dir/docker-compose.yml" ]; then
+        log_error "docker-compose.yml not found in $service_dir"
+        return 1
+    fi
+    
+    log_info "Running in $service: docker-compose ${cmd[*]}"
+    (cd "$service_dir" && docker-compose "${cmd[@]}") || return 1
+    log_success "$service completed"
+}
+
+# Process services
+process_services() {
+    local action=$1
+    shift
+    local services=("$@")
+    
+    # If no services specified, use defaults
+    if [ ${#services[@]} -eq 0 ]; then
+        services=("${DEFAULT_SERVICES[@]}")
+    fi
+    
+    local failed=0
+    
+    for service in "${services[@]}"; do
+        echo
+        case "$action" in
+            start)
+                run_compose "$service" up -d || ((failed++))
+                ;;
+            stop)
+                run_compose "$service" stop || ((failed++))
+                ;;
+            restart)
+                run_compose "$service" restart || ((failed++))
+                ;;
+            remove|down)
+                run_compose "$service" down || ((failed++))
+                ;;
+            upgrade|update)
+                run_compose "$service" down || ((failed++))
+                run_compose "$service" pull || ((failed++))
+                run_compose "$service" up -d || ((failed++))
+                ;;
+            logs)
+                run_compose "$service" logs -f || ((failed++))
+                ;;
+            status)
+                run_compose "$service" ps || ((failed++))
+                ;;
+            *)
+                log_error "Unknown action: $action"
+                return 1
+                ;;
+        esac
+    done
+    
+    echo
+    if [ $failed -eq 0 ]; then
+        log_success "All services processed successfully"
+        return 0
+    else
+        log_warn "$failed service(s) failed"
+        return 1
+    fi
+}
+
+# ============================================================================
+# Commands
+# ============================================================================
+
+cmd_start() {
+    log_info "Starting services..."
+    process_services start "$@"
+}
+
+cmd_stop() {
+    log_info "Stopping services..."
+    process_services stop "$@"
+}
+
+cmd_restart() {
+    log_info "Restarting services..."
+    process_services restart "$@"
+}
+
+cmd_upgrade() {
+    log_info "Upgrading services (pull latest images and restart)..."
+    process_services upgrade "$@"
+}
+
+cmd_remove() {
+    log_info "Removing services..."
+    process_services remove "$@"
+}
+
+cmd_logs() {
+    if [ $# -eq 0 ]; then
+        log_error "Usage: $0 logs <service>"
+        return 1
+    fi
+    log_info "Showing logs for $1 (Ctrl+C to exit)..."
+    process_services logs "$@"
+}
+
+cmd_status() {
+    log_info "Showing service status..."
+    process_services status "$@"
+}
+
+cmd_pull() {
+    log_info "Pulling latest Git changes..."
+    cd "$COMPOSES_DIR"
+    git pull
+    log_success "Git pull completed"
+}
+
+cmd_list() {
+    log_info "Available services:"
+    for service in "${DEFAULT_SERVICES[@]}"; do
+        if [ -d "$COMPOSES_DIR/$service" ]; then
+            echo "  - $service"
+        else
+            echo "  - $service (MISSING)"
+        fi
+    done
+}
+
+cmd_help() {
+    cat <<EOF
+${BLUE}Docker Compose Multi-Service Manager${NC}
+
+${YELLOW}Usage:${NC}
+  $0 <command> [service...]
+
+${YELLOW}Commands:${NC}
+  start [service...]       Start services (default: all)
+  stop [service...]        Stop services (default: all)
+  restart [service...]     Restart services (default: all)
+  upgrade [service...]     Upgrade services - pull images and restart (default: all)
+  remove [service...]      Remove services - docker-compose down (default: all)
+  logs <service>           Show live logs for a service
+  status [service...]      Show status of services (default: all)
+  pull                     Pull latest Git changes
+  list                     List all available services
+  help                     Show this help message
+
+${YELLOW}Examples:${NC}
+  $0 start                 # Start all default services
+  $0 start jellyfin        # Start only jellyfin
+  $0 upgrade bedrock       # Upgrade bedrock service
+  $0 logs traefik          # Watch traefik logs
+  $0 status jellyfin       # Show jellyfin container status
+
+${YELLOW}Default services:${NC}
+  ${DEFAULT_SERVICES[*]}
+
+EOF
+}
+
+# ============================================================================
+# Main
+# ============================================================================
+
+main() {
+    if [ $# -eq 0 ]; then
+        cmd_help
+        return 1
+    fi
+    
+    local command=$1
+    shift
+    
+    case "$command" in
+        start)
+            cmd_start "$@"
+            ;;
+        stop)
+            cmd_stop "$@"
+            ;;
+        restart)
+            cmd_restart "$@"
+            ;;
+        upgrade|update)
+            cmd_upgrade "$@"
+            ;;
+        remove|down)
+            cmd_remove "$@"
+            ;;
+        logs)
+            cmd_logs "$@"
+            ;;
+        status)
+            cmd_status "$@"
+            ;;
+        pull)
+            cmd_pull "$@"
+            ;;
+        list)
+            cmd_list "$@"
+            ;;
+        help|-h|--help)
+            cmd_help
+            ;;
+        *)
+            log_error "Unknown command: $command"
+            echo
+            cmd_help
+            return 1
+            ;;
+    esac
+}
+
+main "$@"
