@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  samba:
+    image: servercontainers/samba
+    container_name: samba
+    restart: unless-stopped
+    ports:
+      - "139:139"
+      - "445:445"
+    environment:
+      - ACCOUNT_${SAMBA_USER}=${SAMBA_PASSWORD}
+      - UID_${SAMBA_USER}=1000
+      - SAMBA_VOLUME_CONFIG_md0=[md0]; path=/shares/md0; valid users = ${SAMBA_USER}; read only = no; guest ok = no
+    volumes:
+      - /mnt/md0:/shares/md0

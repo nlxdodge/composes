@@ -5,8 +5,8 @@ services:
     container_name: jellyfin
     restart: unless-stopped
     volumes:
-      - /home/nlxdodge/configurations/jellyfin/config:/config
-      - /home/nlxdodge/configurations/jellyfin/cache:/cache
+      - ${HOME}/configurations/jellyfin/config:/config
+      - ${HOME}/configurations/jellyfin/cache:/cache
       - /mnt/md0:/md0
     extra_hosts:
       - host.docker.internal:host-gateway
@@ -28,7 +28,7 @@ services:
       - radarr
       - sonarr
     volumes:
-      - /home/nlxdodge/configurations/seerr:/app/config
+      - ${HOME}/configurations/seerr:/app/config
     labels:
       - "traefik.http.routers.seerr.rule=Host(`seerr.gerbenveenhof.nl`)"
       - "traefik.http.services.seerr.loadbalancer.server.port=5055"
@@ -48,7 +48,7 @@ services:
     environment:
       HOME: /config
     volumes:
-      - /home/nlxdodge/configurations/flood:/config
+      - ${HOME}/configurations/flood:/config
       - /mnt/md0:/md0
     labels:
       - "traefik.http.routers.flood.rule=Host(`flood.gerbenveenhof.nl`)"
@@ -87,8 +87,8 @@ services:
       - USER=${TRANSMISSION_USERNAME}
       - PASS=${TRANSMISSION_PASSWORD}
     volumes:
-      - /home/nlxdodge/configurations/transmission/config:/config
-      - /home/nlxdodge/configurations/transmission/watch:/watch
+      - ${HOME}/configurations/transmission/config:/config
+      - ${HOME}/configurations/transmission/watch:/watch
       - /mnt/md0:/md0
       - /mnt/md0/downloads:/downloads
 
@@ -99,7 +99,7 @@ services:
     depends_on:
       - transmission
     volumes:
-      - /home/nlxdodge/configurations/sonarr/config:/config
+      - ${HOME}/configurations/sonarr/config:/config
       - /mnt/md0:/md0
     labels:
       - "traefik.http.routers.sonarr.rule=Host(`sonarr.gerbenveenhof.nl`)"
@@ -116,7 +116,7 @@ services:
     depends_on:
       - transmission
     volumes:
-      - /home/nlxdodge/configurations/radarr:/config
+      - ${HOME}/configurations/radarr:/config
       - /mnt/md0:/md0
     labels:
       - "traefik.http.routers.radarr.rule=Host(`radarr.gerbenveenhof.nl`)"
@@ -134,7 +134,7 @@ services:
       - sonarr
       - radarr
     volumes:
-      - /home/nlxdodge/configurations/bazarr:/config
+      - ${HOME}/configurations/bazarr:/config
       - /mnt/md0:/md0
     labels:
       - "traefik.http.routers.bazarr.rule=Host(`bazarr.gerbenveenhof.nl`)"
@@ -151,7 +151,7 @@ services:
     depends_on:
       - transmission
     volumes:
-      - /home/nlxdodge/configurations/prowlarr:/config
+      - ${HOME}/configurations/prowlarr:/config
     labels:
       - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.gerbenveenhof.nl`)"
       - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
@@ -167,7 +167,7 @@ services:
     depends_on:
       - prowlarr
     volumes:
-      - /home/nlxdodge/configurations/flaresolver:/config
+      - ${HOME}/configurations/flaresolver:/config
     ports:
       - "8191:8191"
 
@@ -178,7 +178,7 @@ services:
       - jellyfin
       - seerr
     volumes:
-      - /home/nlxdodge/configurations/wizarr:/config
+      - ${HOME}/configurations/wizarr:/config
     labels:
       - "traefik.http.routers.wizarr.rule=Host(`wizarr.gerbenveenhof.nl`)"
       - "traefik.http.services.wizarr.loadbalancer.server.port=5690"

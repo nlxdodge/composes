@@ -10,4 +10,4 @@ services:
     env_file:
       - .env
     volumes:
-      - /home/nlxdodge/servers/dragonwilds:/home/steam/server-files
+      - ${HOME}/servers/dragonwilds:/home/steam/server-files

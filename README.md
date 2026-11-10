@@ -44,7 +44,7 @@ Made an oopsie? remove everything with `./remove.sh`
 ## Folder structure
 
 ```txt
-/home/nlxdodge/composes/ -> this repository.
-/home/nlxdodge/composes/scripts -> houses all the scripts in the composes project to start all the stacks.
-/home/nlxdodge/configurations/ -> for all the configurations used in containers, here everything will be stored that is non volatile.
+${HOME}/composes/ -> this repository.
+${HOME}/composes/scripts -> houses all the scripts in the composes project to start all the stacks.
+${HOME}/configurations/ -> for all the configurations used in containers, here everything will be stored that is non volatile.
 ```
