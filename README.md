@@ -13,8 +13,8 @@ Check out the [DNS](DNS.md) settings to manually set the right url's again.
 | ------------ | -------------------------------------- |
 | Arcane       | Dashboard for containers orchestration |
 | Flood        | Torrent Web UI                         |
-| Seerr        | Media Requester Web UI                 |
 | Bazarr       | Subtitles finder                       |
+| Seerr        | Media Requester Web UI                 |
 | Gluetun      | VPN Network                            |
 | Radarr       | Movie finder                           |
 | Traefik      | Proxy/Gateway                          |
@@ -23,6 +23,7 @@ Check out the [DNS](DNS.md) settings to manually set the right url's again.
 | Scrutiny     | S.M.A.R.T. checker and Web UI          |
 | Prowlarr     | Indexer for finding things             |
 | Transmission | Torrenting client                      |
+| Keydungeon   | Encrypted password manager API         |
 
 ## Commands
 
@@ -48,3 +49,20 @@ ${HOME}/composes/ -> this repository.
 ${HOME}/composes/scripts -> houses all the scripts in the composes project to start all the stacks.
 ${HOME}/configurations/ -> for all the configurations used in containers, here everything will be stored that is non volatile.
 ```
+
+## DNS setup, provider independant
+
+| Record Type | From     | To                        |
+| ----------- | -------- | ------------------------- |
+| A           | basingse | HOME_IP_ADDRESS           |
+| CNAME       | arcane   | basingse.gerbenveenhof.nl |
+| CNAME       | bazarr   | basingse.gerbenveenhof.nl |
+| CNAME       | flood    | basingse.gerbenveenhof.nl |
+| CNAME       | jellyfin | basingse.gerbenveenhof.nl |
+| CNAME       | prowlarr | basingse.gerbenveenhof.nl |
+| CNAME       | radarr   | basingse.gerbenveenhof.nl |
+| CNAME       | scrutiny | basingse.gerbenveenhof.nl |
+| CNAME       | seerr    | basingse.gerbenveenhof.nl |
+| CNAME       | sonarr   | basingse.gerbenveenhof.nl |
+| CNAME       | traefik  | basingse.gerbenveenhof.nl |
+| CNAME       | wizarr   | basingse.gerbenveenhof.nl |

@@ -10,7 +10,7 @@ set -euo pipefail
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 COMPOSES_DIR="$SCRIPT_DIR"
-DEFAULT_SERVICES=("traefik" "arcane" "scrutiny" "jellyfin" "dragonwilds")
+DEFAULT_SERVICES=("traefik" "arcane" "scrutiny" "jellyfin" "dragonwilds" "keydungeon")
 
 # Colors for output
 RED='\033[0;31m'
@@ -39,6 +39,17 @@ log_warn() {
     echo -e "${YELLOW}[!]${NC} $*"
 }
 
+# Find the compose file for a service (compose.yml)
+compose_file_for_service() {
+    local service_dir="$COMPOSES_DIR/$1"
+    
+    if [ -f "$service_dir/compose.yml" ]; then
+        echo "$service_dir/compose.yml"
+    else
+        return 1
+    fi
+}
+
 # Run docker-compose command in service directory
 run_compose() {
     local service=$1
@@ -52,13 +63,14 @@ run_compose() {
         return 1
     fi
     
-    if [ ! -f "$service_dir/docker-compose.yml" ]; then
-        log_error "docker-compose.yml not found in $service_dir"
+    local compose_file
+    if ! compose_file=$(compose_file_for_service "$service"); then
+        log_error "No compose file found in $service_dir"
         return 1
     fi
     
-    log_info "Running in $service: docker-compose ${cmd[*]}"
-    (cd "$service_dir" && docker-compose "${cmd[@]}") || return 1
+    log_info "Running in $service: docker-compose -f $(basename "$compose_file") ${cmd[*]}"
+    (cd "$service_dir" && docker-compose -f "$compose_file" "${cmd[@]}") || return 1
     log_success "$service completed"
 }
 
@@ -92,7 +104,12 @@ process_services() {
                 ;;
             upgrade|update)
                 run_compose "$service" down || ((failed++))
-                run_compose "$service" pull || ((failed++))
+                local compose_file
+                if compose_file=$(compose_file_for_service "$service") && grep -qE '^[[:space:]]*build:' "$compose_file"; then
+                    run_compose "$service" build --pull || ((failed++))
+                else
+                    run_compose "$service" pull || ((failed++))
+                fi
                 run_compose "$service" up -d || ((failed++))
                 ;;
             logs)
@@ -138,7 +155,7 @@ cmd_restart() {
 }
 
 cmd_upgrade() {
-    log_info "Upgrading services (pull latest images and restart)..."
+    log_info "Upgrading services (pull/build images and restart)..."
     process_services upgrade "$@"
 }
 
@@ -165,6 +182,17 @@ cmd_pull() {
     log_info "Pulling latest Git changes..."
     cd "$COMPOSES_DIR"
     git pull
+
+    # Keydungeon is a separate clone that is ignored by this repository.
+    local keydungeon_dir="$COMPOSES_DIR/keydungeon"
+    if [ -d "$keydungeon_dir/.git" ]; then
+        log_info "Pulling latest Keydungeon API changes..."
+        git -C "$keydungeon_dir" pull
+    else
+        log_info "Cloning Keydungeon API..."
+        git clone https://github.com/nlxdodge/keydungeon-api.git "$keydungeon_dir"
+    fi
+
     log_success "Git pull completed"
 }
 
@@ -190,7 +218,7 @@ ${YELLOW}Commands:${NC}
   start [service...]       Start services (default: all)
   stop [service...]        Stop services (default: all)
   restart [service...]     Restart services (default: all)
-  upgrade [service...]     Upgrade services - pull images and restart (default: all)
+  upgrade [service...]     Upgrade services - pull/build images and restart (default: all)
   remove [service...]      Remove services - docker-compose down (default: all)
   logs <service>           Show live logs for a service
   status [service...]      Show status of services (default: all)

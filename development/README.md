@@ -12,7 +12,7 @@ POSTGRES_PASSWORD=
 Next either use Docker or Podman etc. to create the stack.
 
 ```bash
-docker-compose up -d
+docker compose up -d
 # or
 podman-compose up -d
 ```
