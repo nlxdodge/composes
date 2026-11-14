@@ -4,7 +4,7 @@ set -euo pipefail
 # ============================================================================
 # Docker Compose Multi-Service Manager
 # ============================================================================
-# Usage: ./composes {start|stop|restart|upgrade|logs|status|remove} [service]
+# Usage: ./composes {start|stop|restart|upgrade|logs|status|remove|setup} [service]
 # ============================================================================
 
 # Configuration
@@ -196,6 +196,23 @@ cmd_pull() {
     log_success "Git pull completed"
 }
 
+cmd_setup() {
+    log_info "Setting up service directories..."
+
+    local keydungeon_data="$HOME/keydungeon/data"
+    local keydungeon_backups="$HOME/keydungeon/backups"
+    mkdir -p "$keydungeon_data" "$keydungeon_backups"
+    log_success "Created $keydungeon_data and $keydungeon_backups"
+
+    if [ "$(uname -s)" = "Linux" ]; then
+        log_info "Setting ownership to UID/GID 65532..."
+        sudo chown -R 65532:65532 "$keydungeon_data" "$keydungeon_backups"
+        log_success "Ownership updated"
+    else
+        log_info "Skipping ownership change on $(uname -s); Docker handles bind-mount permissions."
+    fi
+}
+
 cmd_list() {
     log_info "Available services:"
     for service in "${DEFAULT_SERVICES[@]}"; do
@@ -223,6 +240,7 @@ ${YELLOW}Commands:${NC}
   logs <service>           Show live logs for a service
   status [service...]      Show status of services (default: all)
   pull                     Pull latest Git changes
+  setup                    Create host directories and fix keydungeon permissions
   list                     List all available services
   help                     Show this help message
 
@@ -230,6 +248,7 @@ ${YELLOW}Examples:${NC}
   $0 start                 # Start all default services
   $0 start jellyfin        # Start only jellyfin
   $0 upgrade bedrock       # Upgrade bedrock service
+  $0 setup                 # Create keydungeon host directories
   $0 logs traefik          # Watch traefik logs
   $0 status jellyfin       # Show jellyfin container status
 
@@ -276,6 +295,9 @@ main() {
             ;;
         pull)
             cmd_pull "$@"
+            ;;
+        setup)
+            cmd_setup "$@"
             ;;
         list)
             cmd_list "$@"

@@ -30,7 +30,7 @@ Check out the [DNS](DNS.md) settings to manually set the right url's again.
 1. Read through the README.md's in the other folders for more setup
 2. Fill in the `.env` file if needed check the `.env.tmp` file as template.
 
-Run `./setup.sh` to create folders, copy over defaults and setup the docker networks used.
+Run `./composes setup` to create folders, copy over defaults and setup the docker networks used.
 
 Then run `./start.sh` to start the first time pulling of containers and make them all work.
 
