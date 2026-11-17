@@ -36,5 +36,5 @@ volumes:
 
 networks:
   default:
-    external:
-      name: global
+    name: global
+    external: true
