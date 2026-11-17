@@ -11,6 +11,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 COMPOSES_DIR="$SCRIPT_DIR"
 DEFAULT_SERVICES=("traefik" "arcane" "scrutiny" "jellyfin" "dragonwilds" "keydungeon")
+COMPOSE=(docker compose)
 
 # Colors for output
 RED='\033[0;31m'
@@ -59,19 +60,24 @@ compose_has_build() {
 
     compose_file=$(compose_file_for_service "$service") || return 1
 
-    if rendered=$(cd "$service_dir" && docker-compose -f "$compose_file" config 2>/dev/null); then
+    if rendered=$(cd "$service_dir" && "${COMPOSE[@]}" -f "$compose_file" config 2>/dev/null); then
         printf '%s\n' "$rendered" | grep -qE '^[[:space:]]*build:'
     else
         grep -qE '^[[:space:]]*build:' "$compose_file"
     fi
 }
 
-# Run docker-compose command in service directory
+# Run docker compose command in service directory
 run_compose() {
     local service=$1
     shift
     local cmd=("$@")
     
+    if ! "${COMPOSE[@]}" version >/dev/null 2>&1; then
+        log_error "Docker Compose v2 is required (docker compose)."
+        return 1
+    fi
+
     local service_dir="$COMPOSES_DIR/$service"
     
     if [ ! -d "$service_dir" ]; then
@@ -85,8 +91,8 @@ run_compose() {
         return 1
     fi
     
-    log_info "Running in $service: docker-compose -f $(basename "$compose_file") ${cmd[*]}"
-    (cd "$service_dir" && docker-compose -f "$compose_file" "${cmd[@]}") || return 1
+    log_info "Running in $service: ${COMPOSE[*]} -f $(basename "$compose_file") ${cmd[*]}"
+    (cd "$service_dir" && "${COMPOSE[@]}" -f "$compose_file" "${cmd[@]}") || return 1
     log_success "$service completed"
 }
 
@@ -281,7 +287,7 @@ ${YELLOW}Commands:${NC}
   stop [service...]        Stop services (default: all)
   restart [service...]     Restart services (default: all)
   upgrade [service...]     Upgrade services - pull/build images and restart (default: all)
-  remove [service...]      Remove services - docker-compose down (default: all)
+  remove [service...]      Remove services - docker compose down (default: all)
   logs <service>           Show live logs for a service
   status [service...]      Show status of services (default: all)
   pull                     Pull latest Git changes
