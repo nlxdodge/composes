@@ -50,6 +50,22 @@ compose_file_for_service() {
     fi
 }
 
+# Check whether a service's compose setup includes any build context (follows includes)
+compose_has_build() {
+    local service=$1
+    local service_dir="$COMPOSES_DIR/$service"
+    local compose_file
+    local rendered
+
+    compose_file=$(compose_file_for_service "$service") || return 1
+
+    if rendered=$(cd "$service_dir" && docker-compose -f "$compose_file" config 2>/dev/null); then
+        printf '%s\n' "$rendered" | grep -qE '^[[:space:]]*build:'
+    else
+        grep -qE '^[[:space:]]*build:' "$compose_file"
+    fi
+}
+
 # Run docker-compose command in service directory
 run_compose() {
     local service=$1
@@ -104,8 +120,7 @@ process_services() {
                 ;;
             upgrade|update)
                 run_compose "$service" down || ((failed++))
-                local compose_file
-                if compose_file=$(compose_file_for_service "$service") && grep -qE '^[[:space:]]*build:' "$compose_file"; then
+                if compose_has_build "$service"; then
                     run_compose "$service" build --pull || ((failed++))
                 else
                     run_compose "$service" pull || ((failed++))
@@ -183,14 +198,25 @@ cmd_pull() {
     cd "$COMPOSES_DIR"
     git pull
 
-    # Keydungeon is a separate clone that is ignored by this repository.
+    # Keydungeon API and Vue are separate clones ignored by this repository.
     local keydungeon_dir="$COMPOSES_DIR/keydungeon"
-    if [ -d "$keydungeon_dir/.git" ]; then
+    local backend_dir="$keydungeon_dir/backend"
+    local frontend_dir="$keydungeon_dir/frontend"
+
+    if [ -d "$backend_dir/.git" ]; then
         log_info "Pulling latest Keydungeon API changes..."
-        git -C "$keydungeon_dir" pull
+        git -C "$backend_dir" pull
     else
         log_info "Cloning Keydungeon API..."
-        git clone https://github.com/nlxdodge/keydungeon-api.git "$keydungeon_dir"
+        git clone https://github.com/nlxdodge/keydungeon-api.git "$backend_dir"
+    fi
+
+    if [ -d "$frontend_dir/.git" ]; then
+        log_info "Pulling latest Keydungeon Vue changes..."
+        git -C "$frontend_dir" pull
+    else
+        log_info "Cloning Keydungeon Vue..."
+        git clone https://github.com/nlxdodge/keydungeon-vue.git "$frontend_dir"
     fi
 
     log_success "Git pull completed"

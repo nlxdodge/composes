@@ -1,4 +1,5 @@
 **/.env
 
-# Keydungeon API is a separate clone; `./composes pull` clones/updates it.
-keydungeon/
+# Keydungeon backend and frontend are separate clones; `./composes pull` clones/updates them.
+keydungeon/*
+!keydungeon/compose.yml
