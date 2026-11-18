@@ -10,7 +10,7 @@ set -euo pipefail
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 COMPOSES_DIR="$SCRIPT_DIR"
-DEFAULT_SERVICES=("traefik" "arcane" "scrutiny" "jellyfin" "dragonwilds" "keydungeon")
+DEFAULT_SERVICES=("traefik" "arcane" "scrutiny" "jellyfin" "dragonwilds" "keydungeon" "samba")
 COMPOSE=(docker compose)
 
 # Colors for output
@@ -43,7 +43,7 @@ log_warn() {
 # Find the compose file for a service (compose.yml)
 compose_file_for_service() {
     local service_dir="$COMPOSES_DIR/$1"
-    
+
     if [ -f "$service_dir/compose.yml" ]; then
         echo "$service_dir/compose.yml"
     else
@@ -72,25 +72,25 @@ run_compose() {
     local service=$1
     shift
     local cmd=("$@")
-    
+
     if ! "${COMPOSE[@]}" version >/dev/null 2>&1; then
         log_error "Docker Compose v2 is required (docker compose)."
         return 1
     fi
 
     local service_dir="$COMPOSES_DIR/$service"
-    
+
     if [ ! -d "$service_dir" ]; then
         log_error "Service directory not found: $service_dir"
         return 1
     fi
-    
+
     local compose_file
     if ! compose_file=$(compose_file_for_service "$service"); then
         log_error "No compose file found in $service_dir"
         return 1
     fi
-    
+
     log_info "Running in $service: ${COMPOSE[*]} -f $(basename "$compose_file") ${cmd[*]}"
     (cd "$service_dir" && "${COMPOSE[@]}" -f "$compose_file" "${cmd[@]}") || return 1
     log_success "$service completed"
@@ -101,14 +101,14 @@ process_services() {
     local action=$1
     shift
     local services=("$@")
-    
+
     # If no services specified, use defaults
     if [ ${#services[@]} -eq 0 ]; then
         services=("${DEFAULT_SERVICES[@]}")
     fi
-    
+
     local failed=0
-    
+
     for service in "${services[@]}"; do
         echo
         case "$action" in
@@ -145,7 +145,7 @@ process_services() {
                 ;;
         esac
     done
-    
+
     echo
     if [ $failed -eq 0 ]; then
         log_success "All services processed successfully"
@@ -259,6 +259,51 @@ cmd_setup() {
         log_info "Setting keydungeon ownership to UID/GID 65532..."
         sudo chown -R 65532:65532 "$HOME/keydungeon/data" "$HOME/keydungeon/backups"
         log_success "Ownership updated"
+
+        local update_unit="/etc/systemd/system/composes-update.service"
+        if sudo test -e "$update_unit"; then
+            log_info "Systemd unit already exists: $update_unit"
+        else
+            log_info "Creating systemd unit: $update_unit"
+            sudo tee "$update_unit" >/dev/null <<EOF
+[Unit]
+Description=Update packages and Compose services
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+Environment=DEBIAN_FRONTEND=noninteractive
+WorkingDirectory=$COMPOSES_DIR
+ExecStart=/usr/bin/apt-get update
+ExecStart=/usr/bin/apt-get upgrade -y
+ExecStart=$COMPOSES_DIR/composes pull
+ExecStart=$COMPOSES_DIR/composes update
+EOF
+        fi
+
+        local update_timer="/etc/systemd/system/composes-update.timer"
+        if sudo test -e "$update_timer"; then
+            log_info "Systemd timer already exists: $update_timer"
+        else
+            log_info "Creating systemd timer: $update_timer"
+            sudo tee "$update_timer" >/dev/null <<EOF
+[Unit]
+Description=Run composes-update every Sunday at 06:00
+
+[Timer]
+OnCalendar=Sun *-*-* 06:00:00
+Persistent=true
+Unit=composes-update.service
+
+[Install]
+WantedBy=timers.target
+EOF
+        fi
+
+        sudo systemctl daemon-reload
+        sudo systemctl enable --now composes-update.timer
+        log_success "Enabled weekly composes-update timer (Sunday at 06:00)"
     else
         log_info "Skipping ownership change on $(uname -s); Docker handles bind-mount permissions."
     fi
@@ -318,10 +363,10 @@ main() {
         cmd_help
         return 1
     fi
-    
+
     local command=$1
     shift
-    
+
     case "$command" in
         start)
             cmd_start "$@"
