@@ -200,9 +200,8 @@ cmd_status() {
 }
 
 cmd_pull() {
-    log_info "Pulling latest Git changes..."
-    cd "$COMPOSES_DIR"
-    git pull
+    log_info "Pulling latest composes repository changes..."
+    git -C "$COMPOSES_DIR" pull
 
     # Keydungeon API and Vue are separate clones ignored by this repository.
     local keydungeon_dir="$COMPOSES_DIR/keydungeon"
