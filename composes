@@ -125,12 +125,18 @@ process_services() {
                 run_compose "$service" down || ((failed++))
                 ;;
             upgrade|update)
-                run_compose "$service" down || ((failed++))
                 if compose_has_build "$service"; then
-                    run_compose "$service" build --pull || ((failed++))
+                    if ! run_compose "$service" build --pull; then
+                        failed=$((failed + 1))
+                        continue
+                    fi
                 else
-                    run_compose "$service" pull || ((failed++))
+                    if ! run_compose "$service" pull; then
+                        failed=$((failed + 1))
+                        continue
+                    fi
                 fi
+                # Compose recreates changed containers and leaves unchanged ones running.
                 run_compose "$service" up -d || ((failed++))
                 ;;
             logs)
@@ -176,7 +182,7 @@ cmd_restart() {
 }
 
 cmd_upgrade() {
-    log_info "Upgrading services (pull/build images and restart)..."
+    log_info "Upgrading services (pull/build images and replace changed containers)..."
     process_services upgrade "$@"
 }
 
@@ -330,7 +336,7 @@ ${YELLOW}Commands:${NC}
   start [service...]       Start services (default: all)
   stop [service...]        Stop services (default: all)
   restart [service...]     Restart services (default: all)
-  upgrade [service...]     Upgrade services - pull/build images and restart (default: all)
+  upgrade [service...]     Upgrade services - pull/build and replace changed containers (default: all)
   remove [service...]      Remove services - docker compose down (default: all)
   logs <service>           Show live logs for a service
   status [service...]      Show status of services (default: all)
