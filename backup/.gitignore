@@ -1,0 +1,4 @@
+# Keep local Compose overrides and credentials out of version control.
+.env
+rclone.conf
+/target/

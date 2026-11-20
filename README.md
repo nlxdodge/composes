@@ -9,21 +9,22 @@ Check out the [DNS](DNS.md) settings to manually set the right url's again.
 
 ## All services
 
-| Name         | Description                            |
-| ------------ | -------------------------------------- |
-| Arcane       | Dashboard for containers orchestration |
-| Flood        | Torrent Web UI                         |
-| Bazarr       | Subtitles finder                       |
-| Seerr        | Media Requester Web UI                 |
-| Gluetun      | VPN Network                            |
-| Radarr       | Movie finder                           |
-| Traefik      | Proxy/Gateway                          |
-| Jellyfin     | Media Viewer                           |
-| Sonarr       | Series/Anime finder                    |
-| Scrutiny     | S.M.A.R.T. checker and Web UI          |
-| Prowlarr     | Indexer for finding things             |
-| Transmission | Torrenting client                      |
-| Keydungeon   | Encrypted password manager API and APP |
+| Name         | Description                                 |
+| ------------ | ------------------------------------------- |
+| Arcane       | Dashboard for containers orchestration      |
+| Backup       | Mini container to automaically backup files |
+| Bazarr       | Subtitles finder                            |
+| Flood        | Torrent Web UI                              |
+| Gluetun      | VPN Network                                 |
+| Jellyfin     | Media Viewer                                |
+| Keydungeon   | Encrypted password manager API and APP      |
+| Prowlarr     | Indexer for finding things                  |
+| Radarr       | Movie finder                                |
+| Scrutiny     | S.M.A.R.T. checker and Web UI               |
+| Seerr        | Media Requester Web UI                      |
+| Sonarr       | Series/Anime finder                         |
+| Traefik      | Proxy/Gateway                               |
+| Transmission | Torrenting client                           |
 
 ## Commands
 

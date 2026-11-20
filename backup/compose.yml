@@ -1,0 +1,40 @@
+services:
+  mega-backup:
+    build:
+      context: .
+      dockerfile: Containerfile
+    container_name: keydungeon-mega-backup
+    restart: unless-stopped
+    user: "${PUID:-1000}:${PGID:-1000}"
+    environment:
+      HOME: /tmp
+      XDG_CACHE_HOME: /tmp/.cache
+      RCLONE_CONFIG: /config/rclone/rclone.conf
+      MEGA_REMOTE: ${MEGA_REMOTE:-mega:keydungeon}
+      WATCH_DEBOUNCE_SECONDS: ${WATCH_DEBOUNCE_SECONDS:-30}
+    volumes:
+      - type: bind
+        source: ${KEYDUNGEON_BACKEND_SRC:-${HOME}/keydungeon/backend/src}
+        target: /source/backend
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${KEYDUNGEON_BACKUPS_DIR:-${HOME}/keydungeon/backups}
+        target: /source/backups
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${RCLONE_CONFIG_DIR:-${HOME}/configurations/keydungeon-mega}
+        target: /config/rclone
+        read_only: true
+        bind:
+          create_host_path: false
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
